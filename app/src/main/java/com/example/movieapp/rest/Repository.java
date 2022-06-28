@@ -31,7 +31,7 @@ public class Repository {
         this.databaseReference = db.getReference();
     }
 
-    public void getAdmin(Callback callback){
+    public void getAdmin(Callback callback) {
         ValueEventListener postListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -88,10 +88,9 @@ public class Repository {
                     databaseReference.child(Const.Database.user).child(users.getName()).updateChildren(userdataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
-                            }
-                            else {
+                            } else {
                                 Toast.makeText(context, Const.Error.network, Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -108,13 +107,12 @@ public class Repository {
         });
     }
 
-    public void addMovie(Movies movies, Context context){
+    public void addMovie(Movies movies, Context context) {
         databaseReference.child(Const.Database.movie).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()){
+                if (snapshot.exists()) {
                     id = snapshot.getChildrenCount();
-
                 }
             }
 
