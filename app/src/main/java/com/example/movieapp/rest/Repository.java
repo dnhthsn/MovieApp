@@ -111,8 +111,11 @@ public class Repository {
         databaseReference.child(Const.Database.movie).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    id = snapshot.getChildrenCount();
+                if (snapshot.child(Const.Database.movie).child(movies.getMovieName()).exists()) {
+                    Toast.makeText(context, "movie existed", Toast.LENGTH_SHORT).show();
+                } else {
+                    databaseReference.child(Const.Database.movie).child(movies.getMovieName()).setValue(movies);
+                    Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -121,7 +124,5 @@ public class Repository {
 
             }
         });
-        databaseReference.child(Const.Database.movie).child(String.valueOf(id + 1)).setValue(movies);
-        Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
     }
 }

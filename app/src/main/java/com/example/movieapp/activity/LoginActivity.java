@@ -91,10 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         String name = SharedPreference.sharedPreferences.getString(Const.Sender.name, "");
         String pass = SharedPreference.sharedPreferences.getString(Const.Sender.password, "");
 
-        Intent intent = getIntent();
-        String nameIT = intent.getStringExtra(Const.Sender.name);
-
-        inputName.setText(!TextUtils.isEmpty(name) ? name : nameIT);
+        inputName.setText(name);
         inputPassword.setText(pass);
 
         createAccount.setOnClickListener(view -> {

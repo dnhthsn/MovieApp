@@ -61,7 +61,6 @@ public class SignUpActivity extends AppCompatActivity {
                     Users users = new Users(name, phone, password, address, gender);
                     repository.addUser(users, SignUpActivity.this);
                     Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                    intent.putExtra(Const.Sender.name, name);
                     startActivity(intent);
                 }
             }
