@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CDC366"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context=".activity.AddMovieActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/image_logo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/logo" />
+
+    <EditText
+        android:id="@+id/input_movie_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:hint="Movie name" />
+
+    <EditText
+        android:id="@+id/input_movie_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Image Url" />
+
+    <EditText
+        android:id="@+id/input_movie_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:hint="Video Url" />
+
+    <Button
+        android:id="@+id/add_movie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/round_corner_button"
+        android:text="Add" />
+
+</LinearLayout>
