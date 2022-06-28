@@ -5,18 +5,16 @@ import java.util.List;
 
 public class AllCategory implements Serializable {
     private String categoryTitle;
-    private int categoryID;
 
-    private List<CategoryItem> categoryItemList = null;
+    private List<Movies> categoryItem = null;
 
-    public AllCategory(int categoryID, String categoryTitle, List<CategoryItem> categoryItemList) {
+    public AllCategory(String categoryTitle, List<Movies> categoryItemList) {
         this.categoryTitle = categoryTitle;
-        this.categoryID = categoryID;
-        this.categoryItemList = categoryItemList;
+        this.categoryItem = categoryItemList;
     }
 
-    public List<CategoryItem> getCategoryItemList() {
-        return categoryItemList;
+    public List<Movies> getCategoryItem() {
+        return categoryItem;
     }
 
     public String getCategoryTitle() {

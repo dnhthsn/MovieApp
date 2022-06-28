@@ -10,6 +10,8 @@ public interface Const {
         String phone = "phone";
         String address = "address";
         String gender = "gender";
+        String image = "image";
+        String video = "video";
     }
 
     interface Sender {

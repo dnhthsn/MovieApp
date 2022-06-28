@@ -108,14 +108,27 @@ public class Repository {
     }
 
     public void addMovie(Movies movies, Context context) {
-        databaseReference.child(Const.Database.movie).addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(Const.Database.movie).child(movies.getMovieName()).exists()) {
-                    Toast.makeText(context, "movie existed", Toast.LENGTH_SHORT).show();
+                if (!snapshot.child(Const.Database.movie).child(movies.getName()).exists()) {
+                    HashMap<String, Object> movieDataMap = new HashMap<>();
+                    movieDataMap.put(Const.Database.name, movies.getName());
+                    movieDataMap.put(Const.Database.image, movies.getImage());
+                    movieDataMap.put(Const.Database.video, movies.getVideo());
+
+                    databaseReference.child(Const.Database.movie).child(movies.getName()).updateChildren(movieDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, Const.Error.network, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 } else {
-                    databaseReference.child(Const.Database.movie).child(movies.getMovieName()).setValue(movies);
-                    Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, Const.Error.existed, Toast.LENGTH_SHORT).show();
                 }
             }
 

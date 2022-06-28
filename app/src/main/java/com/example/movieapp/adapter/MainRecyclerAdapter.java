@@ -1,6 +1,5 @@
 package com.example.movieapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,32 +11,32 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.AllCategory;
-import com.example.movieapp.model.CategoryItem;
+import com.example.movieapp.model.Movies;
 
 import java.util.List;
 
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
-    private List<AllCategory> allCategoryList;
+    private List<AllCategory> allCategory;
 
     public MainRecyclerAdapter(List<AllCategory> allCategoryList) {
-        this.allCategoryList = allCategoryList;
+        this.allCategory = allCategoryList;
     }
 
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MainViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.main_recycler_row_item, parent, false));
+        return new MainViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_recycler, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        holder.categoryName.setText(allCategoryList.get(position).getCategoryTitle());
-        setItemRecycler(holder.itemRecycler, allCategoryList.get(position).getCategoryItemList());
+        holder.categoryName.setText(allCategory.get(position).getCategoryTitle());
+        setItemRecycler(holder.itemRecycler, allCategory.get(position).getCategoryItem());
     }
 
     @Override
     public int getItemCount() {
-        return allCategoryList.size();
+        return allCategory.size();
     }
 
     public static final class MainViewHolder extends RecyclerView.ViewHolder {
@@ -52,7 +51,7 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
         }
     }
 
-    private void setItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList) {
+    private void setItemRecycler(RecyclerView recyclerView, List<Movies> categoryItemList) {
         ItemRecyclerAdapter itemRecyclerAdapter = new ItemRecyclerAdapter(categoryItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(), RecyclerView.HORIZONTAL, false));
         recyclerView.setAdapter(itemRecyclerAdapter);

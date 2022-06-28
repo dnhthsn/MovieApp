@@ -3,28 +3,28 @@ package com.example.movieapp.model;
 import java.io.Serializable;
 
 public class Movies implements Serializable {
-    private String movieName;
-    private String imageUrl;
-    private String fileUrl;
+    private String name;
+    private String image;
+    private String video;
 
     public Movies() {
     }
 
-    public Movies(String movieName, String imageUrl, String fileUrl) {
-        this.movieName = movieName;
-        this.imageUrl = imageUrl;
-        this.fileUrl = fileUrl;
+    public Movies(String name, String imageUrl, String fileUrl) {
+        this.name = name;
+        this.image = imageUrl;
+        this.video = fileUrl;
     }
 
-    public String getMovieName() {
-        return movieName;
+    public String getName() {
+        return name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
+    public String getVideo() {
+        return video;
     }
 }
