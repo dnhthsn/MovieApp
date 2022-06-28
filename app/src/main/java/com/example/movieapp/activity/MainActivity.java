@@ -11,7 +11,6 @@ import com.example.movieapp.R;
 import com.example.movieapp.adapter.BannerMoviesPagerAdapter;
 import com.example.movieapp.adapter.MainRecyclerAdapter;
 import com.example.movieapp.model.AllCategory;
-import com.example.movieapp.model.CategoryItem;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.rest.Callback;
 import com.example.movieapp.rest.Repository;
@@ -55,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void getMovie(List<Movies> list) {
                 super.getMovie(list);
-                for (Movies movie : list){
-                    switch (movie.getGenre()){
+                for (Movies movie : list) {
+                    switch (movie.getGenre()) {
                         case "Horror":
                             homeBanners.add(movie);
                             break;
@@ -95,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 //        movieBannerList.add(new Movies(3, "Eternals", "https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/e/t/eternals_-_vietnamese_poster_1_.jpg", ""));
 //        movieBannerList.add(new Movies(4, "Venom: Let there be Carnage", "https://image.thanhnien.vn/w1024/Uploaded/2022/ygtmjz/2021_05_11/venomposter_tdet.jpg", ""));
 //        movieBannerList.add(new Movies(5, "Doctor Strange in the Multiverse of Madness", "https://ecdn.game4v.com/g4v-content/uploads/2021/04/doctor-strange-2-1-game4v.jpg", ""));
-
 
 
 //        kidsBannerList.add(new Movies(1, "Encanto", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2022/2/4/photo-1-16439542475901828703509.jpg", "https://youtu.be/jKKrfr4To14"));

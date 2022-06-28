@@ -7,18 +7,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Admins;
-import com.example.movieapp.model.Users;
-import com.example.movieapp.prevalent.Prevalent;
 import com.example.movieapp.rest.Callback;
 import com.example.movieapp.rest.Repository;
-import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
 
 import java.util.List;

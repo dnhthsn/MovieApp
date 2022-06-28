@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.example.movieapp.R;
