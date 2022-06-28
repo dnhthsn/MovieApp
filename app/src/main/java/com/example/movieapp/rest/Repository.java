@@ -18,13 +18,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
 public class Repository {
     private FirebaseDatabase db;
     private DatabaseReference databaseReference;
-    private long id = 0;
 
     public Repository() {
         this.db = FirebaseDatabase.getInstance();
@@ -73,6 +74,27 @@ public class Repository {
         databaseReference.child(Const.Database.user).addValueEventListener(postListener);
     }
 
+    public void getMovie(Callback callback) {
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Movies> list = new ArrayList<>();
+                Movies movies;
+                for (DataSnapshot data : snapshot.getChildren()) {
+                    movies = data.getValue(Movies.class);
+                    list.add(movies);
+                }
+                callback.getMovie(list);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+        databaseReference.child(Const.Database.movie).addValueEventListener(postListener);
+    }
+
     public void addUser(Users users, Context context) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -116,6 +138,7 @@ public class Repository {
                     movieDataMap.put(Const.Database.name, movies.getName());
                     movieDataMap.put(Const.Database.image, movies.getImage());
                     movieDataMap.put(Const.Database.video, movies.getVideo());
+                    movieDataMap.put(Const.Database.genre, movies.getGenre());
 
                     databaseReference.child(Const.Database.movie).child(movies.getName()).updateChildren(movieDataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

@@ -13,6 +13,8 @@ import com.example.movieapp.adapter.MainRecyclerAdapter;
 import com.example.movieapp.model.AllCategory;
 import com.example.movieapp.model.CategoryItem;
 import com.example.movieapp.model.Movies;
+import com.example.movieapp.rest.Callback;
+import com.example.movieapp.rest.Repository;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private List<Movies> movieBanners;
     private List<Movies> kidsBanners;
 
+    private Repository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,20 +46,50 @@ public class MainActivity extends AppCompatActivity {
         categoryTab = findViewById(R.id.tablayout);
 
         homeBanners = new ArrayList<>();
+        tvShowBanners = new ArrayList<>();
+        movieBanners = new ArrayList<>();
+        kidsBanners = new ArrayList<>();
+
+        repository = new Repository();
+        repository.getMovie(new Callback() {
+            @Override
+            public void getMovie(List<Movies> list) {
+                super.getMovie(list);
+                for (Movies movie : list){
+                    switch (movie.getGenre()){
+                        case "Horror":
+                            homeBanners.add(movie);
+                            break;
+                        case "TV shows":
+                            tvShowBanners.add(movie);
+                            break;
+                        case "Movie":
+                            movieBanners.add(movie);
+                            break;
+                        case "Kids":
+                            kidsBanners.add(movie);
+                            break;
+                    }
+                }
+                bannerMoviesPagerAdapter.notifyDataSetChanged();
+            }
+        });
+
+
 //        homeBannerList.add(new Movies(1, "Harry Potter and the Deathly hallows", "https://cdn02.ticketbox.vn/poster/9e16af35-831d-11eb-8c61-0242ac110006", ""));
 //        homeBannerList.add(new Movies(2, "Spider-man: No way home", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2021/12/16/800500-1-1639669631931545455159.jpg", ""));
 //        homeBannerList.add(new Movies(3, "Shang-chi and the legends of the ten rings", "https://img.meophim.tv/uploads/movies/shang-chi-va-huyen-thoai-thap-luan-thumb.jpg", ""));
 //        homeBannerList.add(new Movies(4, "Eternals", "https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/e/t/eternals_-_vietnamese_poster_1_.jpg", ""));
 //        homeBannerList.add(new Movies(5, "Venom: Let there be Carnage", "https://image.thanhnien.vn/w1024/Uploaded/2022/ygtmjz/2021_05_11/venomposter_tdet.jpg", ""));
 
-        tvShowBanners = new ArrayList<>();
+
 //        tvShowBannerList.add(new Movies(1, "Peacemaker", "https://image.tmdb.org/t/p/w780/hE3LRZAY84fG19a18pzpkZERjTE.jpg", ""));
 //        tvShowBannerList.add(new Movies(2, "WandaVision", "https://vcdn-giaitri.vnecdn.net/2020/09/21/WandaVision-Poster-1-9215-1600667511.jpg", ""));
 //        tvShowBannerList.add(new Movies(3, "Hawkeye", "https://static.247phim.com/163640/conversions/619eebf77a516_UhhYYAm-435_627.jpg", ""));
 //        tvShowBannerList.add(new Movies(4, "The falcon and the winter soldier", "https://thegioidienanh.vn/stores/news_dataimages/anhvu/032021/21/21/5205_05.jpg?rt=20210321215231", ""));
 //        tvShowBannerList.add(new Movies(5, "Loki", "https://m.media-amazon.com/images/M/MV5BNTkwOTE1ZDYtODQ3Yy00YTYwLTg0YWQtYmVkNmFjNGZlYmRiXkEyXkFqcGdeQXVyNTc4MjczMTM@._V1_.jpg", ""));
 
-        movieBanners = new ArrayList<>();
+
 //        movieBannerList.add(new Movies(1, "Spider-man: No way home", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2021/12/16/800500-1-1639669631931545455159.jpg", ""));
 //        movieBannerList.add(new Movies(2, "Shang-chi and the legends of the ten rings", "https://img.meophim.tv/uploads/movies/shang-chi-va-huyen-thoai-thap-luan-thumb.jpg", ""));
 //        movieBannerList.add(new Movies(3, "Eternals", "https://www.cgv.vn/media/catalog/product/cache/1/image/c5f0a1eff4c394a251036189ccddaacd/e/t/eternals_-_vietnamese_poster_1_.jpg", ""));
@@ -63,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 //        movieBannerList.add(new Movies(5, "Doctor Strange in the Multiverse of Madness", "https://ecdn.game4v.com/g4v-content/uploads/2021/04/doctor-strange-2-1-game4v.jpg", ""));
 
 
-        kidsBanners = new ArrayList<>();
+
 //        kidsBannerList.add(new Movies(1, "Encanto", "https://kenh14cdn.com/thumb_w/660/203336854389633024/2022/2/4/photo-1-16439542475901828703509.jpg", "https://youtu.be/jKKrfr4To14"));
 //        kidsBannerList.add(new Movies(2, "Doraemon: Stand by me", "https://upload.wikimedia.org/wikipedia/vi/6/60/Stand_by_Me_Doraemon_vn_poster.jpg", ""));
 //        kidsBannerList.add(new Movies(3, "Doraemon: Stand by me 2", "https://phimnhua.com/wp-content/uploads/2021/08/Stand-By-Me-Doraemon-2-2020.jpg", ""));

@@ -12,6 +12,7 @@ public interface Const {
         String gender = "gender";
         String image = "image";
         String video = "video";
+        String genre = "genre";
     }
 
     interface Sender {

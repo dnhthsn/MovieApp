@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">MovieApp</string>
+
+    <string-array name="genres">
+        <item>Action</item>
+        <item>Horror</item>
+        <item>Kids</item>
+        <item>Adult</item>
+        <item>Comedy</item>
+        <item>TV shows</item>
+        <item>Movie</item>
+    </string-array>
 </resources>
