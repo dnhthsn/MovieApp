@@ -67,7 +67,12 @@ public class FragmentHome extends Fragment {
         List<Movies> homeCatListItem2 = new ArrayList<>();
         List<Movies> homeCatListItem3 = new ArrayList<>();
         List<Movies> homeCatListItem4 = new ArrayList<>();
+
         allCategories = new ArrayList<>();
+        allCategories.add(new AllCategory("Only on Zetflix", homeCatListItem1));
+        allCategories.add(new AllCategory("Kids and family movies", homeCatListItem2));
+        allCategories.add(new AllCategory("Action movies", homeCatListItem3));
+        allCategories.add(new AllCategory("Horror movies", homeCatListItem4));
 
         repository = new Repository();
         repository.getMovie(new Callback() {
@@ -75,22 +80,29 @@ public class FragmentHome extends Fragment {
             public void getMovie(List<Movies> list) {
                 super.getMovie(list);
                 for (Movies movie : list) {
+                    homeCatListItem1.add(movie);
+
                     switch (movie.getGenre()) {
                         case "Horror":
                             homeBanners.add(movie);
+                            homeCatListItem4.add(movie);
                             break;
                         case "TV shows":
                             tvShowBanners.add(movie);
+                            //homeCatListItem1.add(movie);
                             break;
                         case "Movie":
                             movieBanners.add(movie);
+                            homeCatListItem3.add(movie);
                             break;
                         case "Kids":
                             kidsBanners.add(movie);
+                            homeCatListItem2.add(movie);
                             break;
                     }
                 }
                 bannerMoviesPagerAdapter.notifyDataSetChanged();
+                mainRecyclerAdapter.notifyDataSetChanged();
             }
         });
 
