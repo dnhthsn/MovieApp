@@ -17,9 +17,14 @@ import java.util.List;
 
 public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.SearchViewHolder> {
     private List<Movies> movies;
+    private onClickListener onClickListener;
 
     public SearchMovieAdapter(List<Movies> movies) {
         this.movies = movies;
+    }
+
+    public void setOnClickListener(onClickListener onClickListener) {
+        this.onClickListener = onClickListener;
     }
 
     @NonNull
@@ -39,7 +44,12 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         return movies.size();
     }
 
-    public class SearchViewHolder extends RecyclerView.ViewHolder {
+    public void filterList(List<Movies> filterList){
+        movies = filterList;
+        notifyDataSetChanged();
+    }
+
+    public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private ImageView movieImage;
         private TextView movieName;
         public SearchViewHolder(@NonNull View itemView) {
@@ -47,6 +57,17 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
             movieImage = itemView.findViewById(R.id.item_image);
             movieName = itemView.findViewById(R.id.item_name);
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            if (onClickListener != null){
+                onClickListener.onClick(getAdapterPosition(), view);
+            }
+        }
+    }
+    public interface onClickListener{
+        void onClick(int position, View view);
     }
 }

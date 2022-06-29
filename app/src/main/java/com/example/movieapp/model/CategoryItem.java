@@ -22,16 +22,4 @@ public class CategoryItem implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-
-    public String getMovieName() {
-        return movieName;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public String getFileUrl() {
-        return fileUrl;
-    }
 }

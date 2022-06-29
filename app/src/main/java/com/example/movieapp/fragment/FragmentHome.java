@@ -1,9 +1,11 @@
 package com.example.movieapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.movieapp.R;
-import com.example.movieapp.activity.MainActivity;
+import com.example.movieapp.activity.InformationActivity;
 import com.example.movieapp.adapter.BannerMoviesPagerAdapter;
 import com.example.movieapp.adapter.MainRecyclerAdapter;
 import com.example.movieapp.model.AllCategory;
@@ -31,6 +33,7 @@ public class FragmentHome extends Fragment {
     private TabLayout indicatorTab, categoryTab;
     private ViewPager bannerMoviesViewPager;
     private RecyclerView mainRecycler;
+    private ImageView information;
 
     private MainRecyclerAdapter mainRecyclerAdapter;
     private BannerMoviesPagerAdapter bannerMoviesPagerAdapter;
@@ -57,6 +60,7 @@ public class FragmentHome extends Fragment {
         categoryTab = view.findViewById(R.id.tablayout);
         bannerMoviesViewPager = view.findViewById(R.id.banner_ViewPager);
         mainRecycler = view.findViewById(R.id.main_recycler);
+        information = view.findViewById(R.id.information);
 
         homeBanners = new ArrayList<>();
         tvShowBanners = new ArrayList<>();
@@ -138,6 +142,14 @@ public class FragmentHome extends Fragment {
         });
 
         setMainRecycler(allCategories);
+
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), InformationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setBannerMoviesPagerAdapter(List<Movies> movies) {

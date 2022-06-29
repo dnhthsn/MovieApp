@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.prevalent.Prevalent;
+import com.example.movieapp.util.Prevalent;
 import com.example.movieapp.rest.Callback;
 import com.example.movieapp.rest.Repository;
 import com.example.movieapp.sharedpreferences.SharedPreference;

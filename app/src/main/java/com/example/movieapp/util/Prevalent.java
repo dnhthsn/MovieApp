@@ -1,4 +1,4 @@
-package com.example.movieapp.prevalent;
+package com.example.movieapp.util;
 
 import com.example.movieapp.model.Users;
 

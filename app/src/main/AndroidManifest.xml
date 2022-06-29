@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp">
         <activity
+            android:name=".activity.EditInformationActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.InformationActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.LoginAdminActivity"
             android:exported="false" />
         <activity
