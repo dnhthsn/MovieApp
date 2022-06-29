@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movieapp.R;
+import com.example.movieapp.activity.MovieDetails;
+import com.example.movieapp.activity.VideoPlayerActivity;
 import com.example.movieapp.model.Movies;
+import com.example.movieapp.util.Const;
 
 import java.util.List;
 
@@ -37,6 +41,14 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     public void onBindViewHolder(@NonNull SearchMovieAdapter.SearchViewHolder holder, int position) {
         Glide.with(holder.itemView.getContext()).load(movies.get(position).getImage()).into(holder.movieImage);
         holder.movieName.setText(movies.get(position).getName());
+        holder.playVideo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(holder.itemView.getContext(), VideoPlayerActivity.class);
+                i.putExtra(Const.Sender.url, movies.get(position).getVideo());
+                holder.itemView.getContext().startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -50,13 +62,15 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView movieImage;
+        private ImageView movieImage, playVideo;
         private TextView movieName;
+
         public SearchViewHolder(@NonNull View itemView) {
             super(itemView);
 
             movieImage = itemView.findViewById(R.id.item_image);
             movieName = itemView.findViewById(R.id.item_name);
+            playVideo = itemView.findViewById(R.id.play_video);
             itemView.setOnClickListener(this);
         }
 
