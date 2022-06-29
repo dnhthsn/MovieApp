@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText inputName, inputPassword, inputPhone, inputAddress;
     private RadioGroup genderGroup;
     private Button clickSignup;
+    private ImageView clickBack;
 
     private Repository repository;
 
@@ -35,6 +37,14 @@ public class SignUpActivity extends AppCompatActivity {
         inputAddress = findViewById(R.id.input_address);
         clickSignup = findViewById(R.id.click_sign_up);
         genderGroup = findViewById(R.id.gender_group);
+        clickBack = findViewById(R.id.click_back);
+
+        clickBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         repository = new Repository();
         clickSignup.setOnClickListener(new View.OnClickListener() {

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.movieapp.R;
@@ -21,6 +22,7 @@ import java.util.List;
 public class LoginAdminActivity extends AppCompatActivity {
     private EditText inputName, inputPassword;
     private Button clickLogin;
+    private ImageView clickBack;
 
     private Repository repository;
 
@@ -32,6 +34,14 @@ public class LoginAdminActivity extends AppCompatActivity {
         inputName = findViewById(R.id.input_name);
         inputPassword = findViewById(R.id.input_password);
         clickLogin = findViewById(R.id.click_login);
+        clickBack = findViewById(R.id.click_back);
+
+        clickBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         repository = new Repository();
         repository.getAdmin(new Callback() {
