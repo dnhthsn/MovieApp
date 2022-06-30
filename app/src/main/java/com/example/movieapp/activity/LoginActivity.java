@@ -1,7 +1,5 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,20 +10,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.util.Utility;
 import com.example.movieapp.rest.Callback;
 import com.example.movieapp.rest.Repository;
 import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText inputName, inputPassword;
     private Button clickLogin;
-    private TextView createAccount, loginAdmin, forgetPassword;
+    private TextView createAccount, loginAdmin, forgetPassword, wrongInfo;
     private CheckBox rememberUser;
 
     private Repository repository;
@@ -42,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         rememberUser = findViewById(R.id.remember_user);
         loginAdmin = findViewById(R.id.login_admin);
         forgetPassword = findViewById(R.id.forget_password);
+        wrongInfo = findViewById(R.id.wrong_info);
 
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,15 +59,15 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        repository = new Repository();
-        repository.getUser(new Callback() {
+        clickLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void getUser(List<Users> list) {
-                super.getUser(list);
-                clickLogin.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                repository = new Repository();
+                repository.getUser(new Callback() {
                     @Override
-                    public void onClick(View view) {
+                    public void getUser(List<Users> list) {
+                        super.getUser(list);
+
                         String name = inputName.getText().toString();
                         String password = inputPassword.getText().toString();
                         if (TextUtils.isEmpty(name)) {
@@ -81,13 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             for (Users users : list) {
                                 if (users.getName().equals(name) && users.getPassword().equals(password)) {
-                                    Toast.makeText(LoginActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     Utility.currentOnlineUser = users;
                                     startActivity(intent);
+                                    wrongInfo.setText("");
                                     break;
                                 } else {
-                                    Toast.makeText(LoginActivity.this, Const.Error.information, Toast.LENGTH_SHORT).show();
+                                    wrongInfo.setText(Const.Error.information);
                                 }
                             }
                         }
@@ -107,5 +108,9 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent1 = new Intent(LoginActivity.this, SignUpActivity.class);
             startActivity(intent1);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 }

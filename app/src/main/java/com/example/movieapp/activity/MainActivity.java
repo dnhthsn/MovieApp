@@ -1,11 +1,11 @@
 package com.example.movieapp.activity;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
-
-import android.os.Bundle;
-import android.view.MenuItem;
 
 import com.example.movieapp.R;
 import com.example.movieapp.adapter.ViewPagerAdapter;
@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
     }
 
+    @Override
+    public void onBackPressed() {
+    }
 }

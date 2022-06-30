@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.movieapp.activity.ForgetPasswordActivity;
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.model.Users;
@@ -24,6 +25,7 @@ import java.util.List;
 public class Repository {
     private FirebaseDatabase db;
     private DatabaseReference databaseReference;
+    private Boolean check;
 
     public Repository() {
         this.db = FirebaseDatabase.getInstance();
@@ -160,20 +162,19 @@ public class Repository {
         });
     }
 
-    public void updateUser(Users users){
+    public void updateUser(Users users) {
         databaseReference.child(Const.Database.user).child(users.getName()).setValue(users);
     }
 
-    public void updatePassword(Users users){
-        databaseReference.child(Const.Database.user).child(users.getName()).child(Const.Database.password).setValue(users.getPassword());
-    }
-
-    public boolean checkUser(Users users){
+    public void updatePassword(Users users, Context context) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.child(Const.Database.user).child(users.getName()).exists()){
-                    return;
+                if (snapshot.child(Const.Database.user).child(users.getName()).exists()) {
+                    Toast.makeText(context, Const.Success.update, Toast.LENGTH_SHORT).show();
+                    databaseReference.child(Const.Database.user).child(users.getName()).child(Const.Database.password).setValue(users.getPassword());
+                } else {
+                    Toast.makeText(context, Const.Error.notexisted, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -182,6 +183,5 @@ public class Repository {
 
             }
         });
-        return false;
     }
 }

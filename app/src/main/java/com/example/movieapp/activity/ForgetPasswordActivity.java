@@ -1,7 +1,5 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
@@ -57,17 +57,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
-                } else if (!repass.equals(password)){
+                } else if (!repass.equals(password)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.notmatch, Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     updatePass(name, password);
                 }
             }
         });
     }
 
-    public void updatePass(String name, String password){
+    public void updatePass(String name, String password) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(LayoutInflater.from(ForgetPasswordActivity.this).inflate(R.layout.dialog, null));
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -83,14 +82,11 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 Users users = new Users();
                 users.setName(name);
                 users.setPassword(password);
-                if (!repository.checkUser(users)){
-                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.notexisted, Toast.LENGTH_SHORT).show();
-                } else {
-                    repository.updatePassword(users);
-                    Toast.makeText(ForgetPasswordActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                }
+
+                repository.updatePassword(users, ForgetPasswordActivity.this);
+
+                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                startActivity(intent);
             }
         });
 

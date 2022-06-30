@@ -1,20 +1,23 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.movieapp.R;
+import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.util.Utility;
 
 public class InformationActivity extends AppCompatActivity {
     private ImageView clickBack;
     private TextView editInfo, name, password, phone, address, gender;
+    private Button logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,7 @@ public class InformationActivity extends AppCompatActivity {
         phone = findViewById(R.id.phone_number);
         address = findViewById(R.id.address);
         gender = findViewById(R.id.gender);
+        logOut = findViewById(R.id.log_out);
 
         String uName = Utility.currentOnlineUser.getName();
         String uPass = Utility.currentOnlineUser.getPassword();
@@ -58,6 +62,16 @@ public class InformationActivity extends AppCompatActivity {
                 intent.putExtra(Const.Sender.address, uAddress);
                 intent.putExtra(Const.Sender.gender, uGender);
                 startActivity(intent);
+            }
+        });
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreference.removeUser();
+                Intent intent = new Intent(InformationActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }
