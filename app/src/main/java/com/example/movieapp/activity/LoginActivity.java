@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         clickLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
