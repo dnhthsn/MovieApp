@@ -18,7 +18,6 @@ import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.rest.Repository;
 import com.example.movieapp.util.Const;
-import com.example.movieapp.util.Utility;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
     private EditText inputName, inputPassword, inputRepass;
