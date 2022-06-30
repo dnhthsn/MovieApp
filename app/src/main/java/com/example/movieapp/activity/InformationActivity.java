@@ -39,11 +39,11 @@ public class InformationActivity extends AppCompatActivity {
         String uAddress = Utility.currentOnlineUser.getAddress();
         String uGender = Utility.currentOnlineUser.getGender();
 
-        name.setText(uName);
-        password.setText(uPass);
-        phone.setText(uPhone);
-        address.setText(uAddress);
-        gender.setText(uGender);
+        name.setText("Name: " + uName);
+        password.setText("Password: " + uPass);
+        phone.setText("Phone number: " + uPhone);
+        address.setText("Address: " + uAddress);
+        gender.setText("Gender: " + uGender);
 
         clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
