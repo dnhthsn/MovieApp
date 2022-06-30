@@ -9,7 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.util.Prevalent;
+import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 
 public class InformationActivity extends AppCompatActivity {
     private ImageView clickBack;
@@ -28,11 +29,11 @@ public class InformationActivity extends AppCompatActivity {
         address = findViewById(R.id.address);
         gender = findViewById(R.id.gender);
 
-        String uName = Prevalent.currentOnlineUser.getName();
-        String uPass = Prevalent.currentOnlineUser.getPassword();
-        String uPhone = Prevalent.currentOnlineUser.getPhone();
-        String uAddress = Prevalent.currentOnlineUser.getAddress();
-        String uGender = Prevalent.currentOnlineUser.getGender();
+        String uName = Utility.currentOnlineUser.getName();
+        String uPass = Utility.currentOnlineUser.getPassword();
+        String uPhone = Utility.currentOnlineUser.getPhone();
+        String uAddress = Utility.currentOnlineUser.getAddress();
+        String uGender = Utility.currentOnlineUser.getGender();
 
         name.setText(uName);
         password.setText(uPass);
@@ -51,6 +52,11 @@ public class InformationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(InformationActivity.this, EditInformationActivity.class);
+                intent.putExtra(Const.Sender.name, uName);
+                intent.putExtra(Const.Sender.password, uPass);
+                intent.putExtra(Const.Sender.phone, uPhone);
+                intent.putExtra(Const.Sender.address, uAddress);
+                intent.putExtra(Const.Sender.gender, uGender);
                 startActivity(intent);
             }
         });

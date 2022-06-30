@@ -159,4 +159,12 @@ public class Repository {
             }
         });
     }
+
+    public void updateUser(Users users){
+        databaseReference.child(Const.Database.user).child(users.getName()).setValue(users);
+    }
+
+    public void updatePassword(Users users){
+        databaseReference.child(Const.Database.user).child(users.getName()).child(Const.Database.password).setValue(users.getPassword());
+    }
 }

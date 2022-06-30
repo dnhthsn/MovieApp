@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.util.Prevalent;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.rest.Callback;
 import com.example.movieapp.rest.Repository;
 import com.example.movieapp.sharedpreferences.SharedPreference;
@@ -25,7 +25,7 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private EditText inputName, inputPassword;
     private Button clickLogin;
-    private TextView createAccount, loginAdmin;
+    private TextView createAccount, loginAdmin, forgetPassword;
     private CheckBox rememberUser;
 
     private Repository repository;
@@ -41,11 +41,20 @@ public class LoginActivity extends AppCompatActivity {
         createAccount = findViewById(R.id.create_account);
         rememberUser = findViewById(R.id.remember_user);
         loginAdmin = findViewById(R.id.login_admin);
+        forgetPassword = findViewById(R.id.forget_password);
 
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, LoginAdminActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                                 if (users.getName().equals(name) && users.getPassword().equals(password)) {
                                     Toast.makeText(LoginActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    Prevalent.currentOnlineUser = users;
+                                    Utility.currentOnlineUser = users;
                                     startActivity(intent);
                                     break;
                                 } else {

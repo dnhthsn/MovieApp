@@ -15,6 +15,8 @@
         <entry key="app/src/main/res/drawable/selected.xml" value="0.2638888888888889" />
         <entry key="app/src/main/res/drawable/unselected.xml" value="0.2638888888888889" />
         <entry key="app/src/main/res/layout/activity_add_movie.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_edit_information.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_forget_password.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_information.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login_admin.xml" value="0.25" />
@@ -26,6 +28,7 @@
         <entry key="app/src/main/res/layout/banner_movie_layout.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/cat_recycler_row_items.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/custom_controller.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/dialog.xml" value="0.16530797101449277" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/item_banner_movies.xml" value="0.17074275362318841" />

@@ -20,12 +20,20 @@ public class Users implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getPhone() {
         return phone;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddress() {
