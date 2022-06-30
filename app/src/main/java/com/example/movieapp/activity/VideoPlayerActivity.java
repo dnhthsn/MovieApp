@@ -1,7 +1,5 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +7,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.util.Const;
@@ -31,11 +31,8 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DataSource;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
 
 public class VideoPlayerActivity extends AppCompatActivity {
     private PlayerView videoPlayer;
@@ -58,7 +55,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Uri videoUri = Uri.parse(getIntent().getStringExtra(Const.Sender.url));
-        //Uri videoUri = Uri.parse("https://imgur.com/7bMqysJ.mp4");
 
         LoadControl loadControl = new DefaultLoadControl();
         BandwidthMeter bandwidthMeter = new DefaultBandwidthMeter();
