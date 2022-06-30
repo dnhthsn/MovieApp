@@ -167,4 +167,21 @@ public class Repository {
     public void updatePassword(Users users){
         databaseReference.child(Const.Database.user).child(users.getName()).child(Const.Database.password).setValue(users.getPassword());
     }
+
+    public boolean checkUser(Users users){
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(Const.Database.user).child(users.getName()).exists()){
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return false;
+    }
 }

@@ -52,12 +52,16 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = inputName.getText().toString();
                 String password = inputPassword.getText().toString();
+                String repass = inputRepass.getText().toString();
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (!repass.equals(password)){
+                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.notmatch, Toast.LENGTH_SHORT).show();
+                }
+                else {
                     updatePass(name, password);
                 }
             }
@@ -80,10 +84,14 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 Users users = new Users();
                 users.setName(name);
                 users.setPassword(password);
-                repository.updatePassword(users);
-                Toast.makeText(ForgetPasswordActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                startActivity(intent);
+                if (!repository.checkUser(users)){
+                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.notexisted, Toast.LENGTH_SHORT).show();
+                } else {
+                    repository.updatePassword(users);
+                    Toast.makeText(ForgetPasswordActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 

@@ -35,7 +35,9 @@ public interface Const {
         String address = "Please write your address...";
         String information = "Wrong information";
         String network = "Network Error: Please try again...";
-        String existed = "already exists";
+        String existed = "existed";
+        String notexisted = "Not existed";
+        String notmatch = "Not match with password";
     }
 
     interface Success {
