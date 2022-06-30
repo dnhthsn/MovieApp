@@ -19,11 +19,13 @@ import com.example.movieapp.rest.Repository;
 import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.util.Utility;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    private EditText inputName, inputPassword;
+    private EditText inputName;
+    private TextInputEditText inputPassword;
     private Button clickLogin;
     private TextView createAccount, loginAdmin, forgetPassword, wrongInfo;
     private CheckBox rememberUser;

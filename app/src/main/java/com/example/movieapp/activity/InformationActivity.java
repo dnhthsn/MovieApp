@@ -10,7 +10,6 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.util.Utility;
 
@@ -68,7 +67,6 @@ public class InformationActivity extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreference.removeUser();
                 Intent intent = new Intent(InformationActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

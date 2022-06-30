@@ -21,7 +21,6 @@ public interface Const {
         String phone = "phone";
         String gender = "gender";
         String address = "address";
-        String movieID = "movieId";
         String movieName = "movieName";
         String movieImageUrl = "movieImageUrl";
         String movieFile = "movieFile";

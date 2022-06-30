@@ -23,7 +23,6 @@ import com.example.movieapp.util.Const;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class FragmentSearch extends Fragment implements SearchMovieAdapter.onClickListener{
     private SearchView searchMovie;
@@ -97,10 +96,18 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
 
     @Override
     public void onClick(int position, View view) {
-        Intent intent = new Intent(getContext(), MovieDetails.class);
-        intent.putExtra(Const.Sender.movieName, movies.get(position).getName());
-        intent.putExtra(Const.Sender.movieImageUrl, movies.get(position).getImage());
-        intent.putExtra(Const.Sender.movieFile, movies.get(position).getVideo());
-        startActivity(intent);
+        if (movies.isEmpty()){
+            Intent intent = new Intent(getContext(), MovieDetails.class);
+            intent.putExtra(Const.Sender.movieName, filter.get(position).getName());
+            intent.putExtra(Const.Sender.movieImageUrl, filter.get(position).getImage());
+            intent.putExtra(Const.Sender.movieFile, filter.get(position).getVideo());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getContext(), MovieDetails.class);
+            intent.putExtra(Const.Sender.movieName, movies.get(position).getName());
+            intent.putExtra(Const.Sender.movieImageUrl, movies.get(position).getImage());
+            intent.putExtra(Const.Sender.movieFile, movies.get(position).getVideo());
+            startActivity(intent);
+        }
     }
 }

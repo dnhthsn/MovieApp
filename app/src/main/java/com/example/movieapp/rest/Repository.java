@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.example.movieapp.activity.ForgetPasswordActivity;
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.model.Users;
@@ -25,7 +24,6 @@ import java.util.List;
 public class Repository {
     private FirebaseDatabase db;
     private DatabaseReference databaseReference;
-    private Boolean check;
 
     public Repository() {
         this.db = FirebaseDatabase.getInstance();

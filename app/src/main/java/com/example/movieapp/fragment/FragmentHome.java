@@ -84,8 +84,6 @@ public class FragmentHome extends Fragment {
             public void getMovie(List<Movies> list) {
                 super.getMovie(list);
                 for (Movies movie : list) {
-                    homeCatListItem1.add(movie);
-
                     switch (movie.getGenre()) {
                         case "Horror":
                             homeBanners.add(movie);
@@ -93,9 +91,9 @@ public class FragmentHome extends Fragment {
                             break;
                         case "TV shows":
                             tvShowBanners.add(movie);
-                            //homeCatListItem1.add(movie);
+                            homeCatListItem1.add(movie);
                             break;
-                        case "Movie":
+                        case "Action":
                             movieBanners.add(movie);
                             homeCatListItem3.add(movie);
                             break;
