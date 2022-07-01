@@ -1,7 +1,6 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Admins;
@@ -25,6 +26,11 @@ public class LoginAdminActivity extends AppCompatActivity {
     private ImageView clickBack;
 
     private Repository repository;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, AddMovieActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +67,7 @@ public class LoginAdminActivity extends AppCompatActivity {
                             for (Admins admins : list) {
                                 if (admins.getName().equals(name) && admins.getPassword().equals(password)) {
                                     Toast.makeText(LoginAdminActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginAdminActivity.this, AddMovieActivity.class);
-                                    startActivity(intent);
+                                    starter(LoginAdminActivity.this);
                                     break;
                                 } else {
                                     Toast.makeText(LoginAdminActivity.this, Const.Error.information, Toast.LENGTH_SHORT).show();

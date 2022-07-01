@@ -1,5 +1,6 @@
 package com.example.movieapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,12 @@ public class InformationActivity extends AppCompatActivity {
     private ImageView clickBack;
     private TextView editInfo, name, password, phone, address, gender;
     private Button logOut;
+
+    public static void starter(Context context, Bundle bundle) {
+        Intent intent = new Intent(context, EditInformationActivity.class);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,21 +61,20 @@ public class InformationActivity extends AppCompatActivity {
         editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InformationActivity.this, EditInformationActivity.class);
-                intent.putExtra(Const.Sender.name, uName);
-                intent.putExtra(Const.Sender.password, uPass);
-                intent.putExtra(Const.Sender.phone, uPhone);
-                intent.putExtra(Const.Sender.address, uAddress);
-                intent.putExtra(Const.Sender.gender, uGender);
-                startActivity(intent);
+                Bundle bundle = new Bundle();
+                bundle.putString(Const.Sender.name, uName);
+                bundle.putString(Const.Sender.password, uPass);
+                bundle.putString(Const.Sender.phone, uPhone);
+                bundle.putString(Const.Sender.address, uAddress);
+                bundle.putString(Const.Sender.gender, uGender);
+                starter(InformationActivity.this, bundle);
             }
         });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InformationActivity.this, LoginActivity.class);
-                startActivity(intent);
+                EditInformationActivity.starter(InformationActivity.this);
                 finish();
             }
         });

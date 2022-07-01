@@ -1,7 +1,6 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
@@ -25,6 +26,11 @@ public class EditInformationActivity extends AppCompatActivity {
     private ImageView clickBack;
 
     private Repository repository;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +46,13 @@ public class EditInformationActivity extends AppCompatActivity {
         clickBack = findViewById(R.id.click_back);
 
         Intent intent = getIntent();
-        inputName.setText(intent.getStringExtra(Const.Sender.name));
-        inputPassword.setText(intent.getStringExtra(Const.Sender.password));
-        inputPhone.setText(intent.getStringExtra(Const.Sender.phone));
-        inputAddress.setText(intent.getStringExtra(Const.Sender.address));
+        Bundle bundle = intent.getExtras();
+        if (bundle != null){
+            inputName.setText(bundle.getString(Const.Sender.name));
+            inputPassword.setText(bundle.getString(Const.Sender.password));
+            inputPhone.setText(bundle.getString(Const.Sender.phone));
+            inputAddress.setText(bundle.getString(Const.Sender.address));
+        }
 
         repository = new Repository();
 
@@ -77,9 +86,8 @@ public class EditInformationActivity extends AppCompatActivity {
                 } else {
                     Users users = new Users(name, phone, password, address, gender);
                     repository.updateUser(users);
+                    starter(EditInformationActivity.this);
                     Toast.makeText(EditInformationActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EditInformationActivity.this, LoginActivity.class);
-                    startActivity(intent);
                 }
             }
         });
