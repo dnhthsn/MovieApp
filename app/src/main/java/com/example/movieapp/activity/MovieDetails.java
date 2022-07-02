@@ -1,5 +1,6 @@
 package com.example.movieapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -20,6 +21,11 @@ public class MovieDetails extends AppCompatActivity {
 
     private String mName, mImage, mFileUrl;
 
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, MovieDetails.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,9 +45,7 @@ public class MovieDetails extends AppCompatActivity {
         playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(MovieDetails.this, VideoPlayerActivity.class);
-                i.putExtra(Const.Sender.url, mFileUrl);
-                startActivity(i);
+                VideoPlayerActivity.starter(MovieDetails.this, mFileUrl);
             }
         });
 

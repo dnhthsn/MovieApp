@@ -96,17 +96,17 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
 
     @Override
     public void onClick(int position, View view) {
-        if (movies.isEmpty()){
-            Intent intent = new Intent(getContext(), MovieDetails.class);
-            intent.putExtra(Const.Sender.movieName, filter.get(position).getName());
-            intent.putExtra(Const.Sender.movieImageUrl, filter.get(position).getImage());
-            intent.putExtra(Const.Sender.movieFile, filter.get(position).getVideo());
-            startActivity(intent);
-        } else {
+        if (filter.isEmpty()){
             Intent intent = new Intent(getContext(), MovieDetails.class);
             intent.putExtra(Const.Sender.movieName, movies.get(position).getName());
             intent.putExtra(Const.Sender.movieImageUrl, movies.get(position).getImage());
             intent.putExtra(Const.Sender.movieFile, movies.get(position).getVideo());
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(getContext(), MovieDetails.class);
+            intent.putExtra(Const.Sender.movieName, filter.get(position).getName());
+            intent.putExtra(Const.Sender.movieImageUrl, filter.get(position).getImage());
+            intent.putExtra(Const.Sender.movieFile, filter.get(position).getVideo());
             startActivity(intent);
         }
     }

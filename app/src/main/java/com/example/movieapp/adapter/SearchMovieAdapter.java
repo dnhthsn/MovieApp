@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SearchMovieAdapter.SearchViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchMovieAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Glide.with(holder.itemView.getContext()).load(movies.get(position).getImage()).into(holder.movieImage);
         holder.movieName.setText(movies.get(position).getName());
         holder.playVideo.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,7 @@
 package com.example.movieapp.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +26,11 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private Button clickConfirm;
 
     private Repository repository;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, ForgetPasswordActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +91,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
                 repository.updatePassword(users, ForgetPasswordActivity.this);
 
-                Intent intent = new Intent(ForgetPasswordActivity.this, LoginActivity.class);
-                startActivity(intent);
+                LoginActivity.starter(ForgetPasswordActivity.this);
             }
         });
 

@@ -86,7 +86,7 @@ public class EditInformationActivity extends AppCompatActivity {
                 } else {
                     Users users = new Users(name, phone, password, address, gender);
                     repository.updateUser(users);
-                    starter(EditInformationActivity.this);
+                    LoginActivity.starter(EditInformationActivity.this);
                     Toast.makeText(EditInformationActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
                 }
             }

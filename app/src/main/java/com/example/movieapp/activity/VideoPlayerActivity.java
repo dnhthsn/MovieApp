@@ -1,5 +1,7 @@
 package com.example.movieapp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
@@ -42,6 +44,12 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private SimpleExoPlayer simpleExoPlayer;
 
     private Boolean flag = false;
+
+    public static void starter(Context context, String url) {
+        Intent intent = new Intent(context, VideoPlayerActivity.class);
+        intent.putExtra(Const.Sender.url, url);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

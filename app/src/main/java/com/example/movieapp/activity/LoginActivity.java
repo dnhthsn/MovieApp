@@ -1,5 +1,6 @@
 package com.example.movieapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -32,6 +33,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private Repository repository;
 
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        context.startActivity(intent);
+    }
+    //Lỗi starter: tự động nhảy đến main activity
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,16 +56,14 @@ public class LoginActivity extends AppCompatActivity {
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, LoginAdminActivity.class);
-                startActivity(intent);
+                LoginAdminActivity.starter(LoginActivity.this);
             }
         });
 
         forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
-                startActivity(intent);
+                ForgetPasswordActivity.starter(LoginActivity.this);
             }
         });
 
@@ -85,10 +90,10 @@ public class LoginActivity extends AppCompatActivity {
                             }
                             for (Users users : list) {
                                 if (users.getName().equals(name) && users.getPassword().equals(password)) {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                     Utility.currentOnlineUser = users;
-                                    startActivity(intent);
+                                    MainActivity.starter(LoginActivity.this);
                                     wrongInfo.setText("");
+                                    finish();
                                     break;
                                 } else {
                                     wrongInfo.setText(Const.Error.information);
@@ -108,8 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         inputPassword.setText(pass);
 
         createAccount.setOnClickListener(view -> {
-            Intent intent1 = new Intent(LoginActivity.this, SignUpActivity.class);
-            startActivity(intent1);
+            SignUpActivity.starter(LoginActivity.this);
         });
     }
 

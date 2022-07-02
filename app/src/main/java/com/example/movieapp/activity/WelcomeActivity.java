@@ -1,10 +1,6 @@
 package com.example.movieapp.activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,9 +8,10 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.VideoView;
 
-import com.example.movieapp.R;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.File;
+import com.example.movieapp.R;
 
 public class WelcomeActivity extends AppCompatActivity {
     private static final int MESSAGE_COUNT_DOWN = 100;
@@ -41,8 +38,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     case MESSAGE_COUNT_DOWN:
                         break;
                     case 234:
-                        Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                        LoginActivity.starter(WelcomeActivity.this);
                 }
             }
         };

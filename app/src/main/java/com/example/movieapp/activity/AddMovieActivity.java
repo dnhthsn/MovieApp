@@ -1,5 +1,7 @@
 package com.example.movieapp.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,11 @@ public class AddMovieActivity extends AppCompatActivity {
     private Spinner movieGenre;
 
     private Repository repository;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, AddMovieActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

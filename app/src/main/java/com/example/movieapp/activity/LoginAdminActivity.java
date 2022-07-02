@@ -28,7 +28,7 @@ public class LoginAdminActivity extends AppCompatActivity {
     private Repository repository;
 
     public static void starter(Context context) {
-        Intent intent = new Intent(context, AddMovieActivity.class);
+        Intent intent = new Intent(context, LoginAdminActivity.class);
         context.startActivity(intent);
     }
 
@@ -67,7 +67,7 @@ public class LoginAdminActivity extends AppCompatActivity {
                             for (Admins admins : list) {
                                 if (admins.getName().equals(name) && admins.getPassword().equals(password)) {
                                     Toast.makeText(LoginAdminActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
-                                    starter(LoginAdminActivity.this);
+                                    AddMovieActivity.starter(LoginAdminActivity.this);
                                     break;
                                 } else {
                                     Toast.makeText(LoginAdminActivity.this, Const.Error.information, Toast.LENGTH_SHORT).show();

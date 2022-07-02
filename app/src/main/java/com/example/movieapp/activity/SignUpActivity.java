@@ -1,7 +1,6 @@
 package com.example.movieapp.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
@@ -25,6 +26,11 @@ public class SignUpActivity extends AppCompatActivity {
     private ImageView clickBack;
 
     private Repository repository;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, SignUpActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +76,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     Users users = new Users(name, phone, password, address, gender);
                     repository.addUser(users, SignUpActivity.this);
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    LoginActivity.starter(SignUpActivity.this);
                 }
             }
         });
