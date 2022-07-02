@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
-import com.example.movieapp.rest.Repository;
+import com.example.movieapp.controll.rest.Repository;
 
 public class AddMovieActivity extends AppCompatActivity {
     private EditText inputMovieName, inputImageUrl, inputVideoUrl;

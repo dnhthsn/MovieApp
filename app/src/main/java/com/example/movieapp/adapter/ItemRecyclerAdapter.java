@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.movieapp.activity.MovieDetails;
+import com.example.movieapp.activity.MovieDetailsActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
@@ -38,8 +38,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(holder.itemView.getContext(), MovieDetails.class);
-                //i.putExtra(Const.Sender.movieID, categoryItem.get(position).getId());
+                Intent i = new Intent(holder.itemView.getContext(), MovieDetailsActivity.class);
                 i.putExtra(Const.Sender.movieName, categoryItem.get(position).getName());
                 i.putExtra(Const.Sender.movieImageUrl, categoryItem.get(position).getImage());
                 i.putExtra(Const.Sender.movieFile, categoryItem.get(position).getVideo());

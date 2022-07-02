@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.example.movieapp.activity.MovieDetails;
+import com.example.movieapp.activity.MovieDetailsActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
@@ -52,8 +52,7 @@ public class BannerMoviesPagerAdapter extends PagerAdapter {
         bannerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(container.getContext(), MovieDetails.class);
-//                i.putExtra(Const.Sender.movieID, movies.get(position).getId());
+                Intent i = new Intent(container.getContext(), MovieDetailsActivity.class);
                 i.putExtra(Const.Sender.movieName, movies.get(position).getName());
                 i.putExtra(Const.Sender.movieImageUrl, movies.get(position).getImage());
                 i.putExtra(Const.Sender.movieFile, movies.get(position).getVideo());

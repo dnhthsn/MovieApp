@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.rest.Repository;
+import com.example.movieapp.controll.rest.Repository;
 import com.example.movieapp.util.Const;
 
 public class ForgetPasswordActivity extends AppCompatActivity {

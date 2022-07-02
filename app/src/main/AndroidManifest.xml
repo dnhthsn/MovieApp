@@ -31,7 +31,7 @@
             android:configChanges="orientation|screenSize|layoutDirection"
             android:exported="false" />
         <activity
-            android:name=".activity.MovieDetails"
+            android:name=".activity.MovieDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".activity.SignUpActivity"

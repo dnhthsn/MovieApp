@@ -25,6 +25,8 @@ public interface Const {
         String movieImageUrl = "movieImageUrl";
         String movieFile = "movieFile";
         String url = "url";
+        String SHARED_PREFERENCES = "dataLogin";
+        String users = "users";
     }
 
     interface Error {

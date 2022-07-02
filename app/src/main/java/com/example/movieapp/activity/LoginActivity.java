@@ -14,12 +14,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
+import com.example.movieapp.controll.local.SharedPreference;
+import com.example.movieapp.controll.rest.Callback;
+import com.example.movieapp.controll.rest.Repository;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.rest.Callback;
-import com.example.movieapp.rest.Repository;
-import com.example.movieapp.sharedpreferences.SharedPreference;
 import com.example.movieapp.util.Const;
-import com.example.movieapp.util.Utility;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -32,12 +31,12 @@ public class LoginActivity extends AppCompatActivity {
     private CheckBox rememberUser;
 
     private Repository repository;
+    private SharedPreference sharedPreference;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }
-    //Lỗi starter: tự động nhảy đến main activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
         loginAdmin = findViewById(R.id.login_admin);
         forgetPassword = findViewById(R.id.forget_password);
         wrongInfo = findViewById(R.id.wrong_info);
+
+        sharedPreference = new SharedPreference(this);
 
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,13 +85,13 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
                         } else {
                             if (rememberUser.isChecked()) {
-                                SharedPreference.saveUser(name, password);
+                                sharedPreference.saveUser(name, password);
                             } else {
-                                SharedPreference.removeUser();
+                                sharedPreference.removeUser();
                             }
                             for (Users users : list) {
                                 if (users.getName().equals(name) && users.getPassword().equals(password)) {
-                                    Utility.currentOnlineUser = users;
+                                    sharedPreference.saveCurrentUser(users);
                                     MainActivity.starter(LoginActivity.this);
                                     wrongInfo.setText("");
                                     finish();
@@ -105,12 +106,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        SharedPreference.sharedPreferences = getSharedPreferences("dataLogin", MODE_PRIVATE);
-        String name = SharedPreference.sharedPreferences.getString(Const.Sender.name, "");
-        String pass = SharedPreference.sharedPreferences.getString(Const.Sender.password, "");
+        Users users = new Users();
+        sharedPreference.getUser(users);
+
+        String name = users.getName();
+        String password = users.getPassword();
 
         inputName.setText(name);
-        inputPassword.setText(pass);
+        inputPassword.setText(password);
 
         createAccount.setOnClickListener(view -> {
             SignUpActivity.starter(LoginActivity.this);

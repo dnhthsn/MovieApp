@@ -14,15 +14,16 @@ import com.bumptech.glide.Glide;
 import com.example.movieapp.R;
 import com.example.movieapp.util.Const;
 
-public class MovieDetails extends AppCompatActivity {
+public class MovieDetailsActivity extends AppCompatActivity {
     private ImageView movieImage;
     private TextView movieName;
     private Button playVideo;
 
     private String mName, mImage, mFileUrl;
 
-    public static void starter(Context context) {
-        Intent intent = new Intent(context, MovieDetails.class);
+    public static void starter(Context context, Bundle bundle) {
+        Intent intent = new Intent(context, MovieDetailsActivity.class);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
@@ -45,7 +46,7 @@ public class MovieDetails extends AppCompatActivity {
         playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                VideoPlayerActivity.starter(MovieDetails.this, mFileUrl);
+                VideoPlayerActivity.starter(MovieDetailsActivity.this, mFileUrl);
             }
         });
 

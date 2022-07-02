@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.rest.Repository;
+import com.example.movieapp.controll.rest.Repository;
 import com.example.movieapp.util.Const;
 
 public class EditInformationActivity extends AppCompatActivity {
@@ -27,8 +27,9 @@ public class EditInformationActivity extends AppCompatActivity {
 
     private Repository repository;
 
-    public static void starter(Context context) {
-        Intent intent = new Intent(context, LoginActivity.class);
+    public static void starter(Context context, Bundle bundle) {
+        Intent intent = new Intent(context, EditInformationActivity.class);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

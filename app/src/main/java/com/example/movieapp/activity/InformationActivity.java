@@ -11,17 +11,19 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
+import com.example.movieapp.controll.local.SharedPreference;
+import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
-import com.example.movieapp.util.Utility;
 
 public class InformationActivity extends AppCompatActivity {
     private ImageView clickBack;
     private TextView editInfo, name, password, phone, address, gender;
     private Button logOut;
 
-    public static void starter(Context context, Bundle bundle) {
-        Intent intent = new Intent(context, EditInformationActivity.class);
-        intent.putExtras(bundle);
+    private SharedPreference sharedPreference;
+
+    public static void starter(Context context) {
+        Intent intent = new Intent(context, InformationActivity.class);
         context.startActivity(intent);
     }
 
@@ -39,11 +41,15 @@ public class InformationActivity extends AppCompatActivity {
         gender = findViewById(R.id.gender);
         logOut = findViewById(R.id.log_out);
 
-        String uName = Utility.currentOnlineUser.getName();
-        String uPass = Utility.currentOnlineUser.getPassword();
-        String uPhone = Utility.currentOnlineUser.getPhone();
-        String uAddress = Utility.currentOnlineUser.getAddress();
-        String uGender = Utility.currentOnlineUser.getGender();
+        sharedPreference = new SharedPreference(this);
+
+        Users users = sharedPreference.getCurrentUser();
+
+        String uName = users.getName();
+        String uPass = users.getPassword();
+        String uPhone = users.getPhone();
+        String uAddress = users.getAddress();
+        String uGender = users.getGender();
 
         name.setText("Name: " + uName);
         password.setText("Password: " + uPass);
@@ -67,14 +73,14 @@ public class InformationActivity extends AppCompatActivity {
                 bundle.putString(Const.Sender.phone, uPhone);
                 bundle.putString(Const.Sender.address, uAddress);
                 bundle.putString(Const.Sender.gender, uGender);
-                starter(InformationActivity.this, bundle);
+                EditInformationActivity.starter(InformationActivity.this, bundle);
             }
         });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditInformationActivity.starter(InformationActivity.this);
+                LoginActivity.starter(InformationActivity.this);
                 finish();
             }
         });

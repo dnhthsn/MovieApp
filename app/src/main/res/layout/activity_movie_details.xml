@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#53534E"
-    tools:context=".activity.MovieDetails">
+    tools:context=".activity.MovieDetailsActivity">
 
     <ImageView
         android:id="@+id/movie_image"

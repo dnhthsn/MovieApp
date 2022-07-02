@@ -1,4 +1,4 @@
-package com.example.movieapp.rest;
+package com.example.movieapp.controll.rest;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -1,6 +1,5 @@
 package com.example.movieapp.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +17,10 @@ import com.example.movieapp.R;
 import com.example.movieapp.activity.InformationActivity;
 import com.example.movieapp.adapter.BannerMoviesPagerAdapter;
 import com.example.movieapp.adapter.MainRecyclerAdapter;
+import com.example.movieapp.controll.rest.Callback;
+import com.example.movieapp.controll.rest.Repository;
 import com.example.movieapp.model.AllCategory;
 import com.example.movieapp.model.Movies;
-import com.example.movieapp.rest.Callback;
-import com.example.movieapp.rest.Repository;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -144,8 +143,7 @@ public class FragmentHome extends Fragment {
         information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), InformationActivity.class);
-                startActivity(intent);
+                InformationActivity.starter(getContext());
             }
         });
     }
