@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.movieapp.R;
 import com.example.movieapp.activity.MovieDetailsActivity;
 import com.example.movieapp.adapter.SearchMovieAdapter;
-import com.example.movieapp.controll.rest.Callback;
-import com.example.movieapp.controll.rest.Repository;
+import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.control.rest.Repository;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 

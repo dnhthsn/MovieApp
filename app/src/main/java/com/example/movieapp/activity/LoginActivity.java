@@ -14,9 +14,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.controll.local.SharedPreference;
-import com.example.movieapp.controll.rest.Callback;
-import com.example.movieapp.controll.rest.Repository;
+import com.example.movieapp.control.local.SharedPreference;
+import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.control.rest.Repository;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
 import com.google.android.material.textfield.TextInputEditText;

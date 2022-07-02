@@ -1,4 +1,4 @@
-package com.example.movieapp.controll.rest;
+package com.example.movieapp.control.rest;
 
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.model.Movies;

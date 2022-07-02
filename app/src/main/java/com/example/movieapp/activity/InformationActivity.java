@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.controll.local.SharedPreference;
+import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
 

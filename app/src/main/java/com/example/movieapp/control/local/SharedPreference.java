@@ -1,4 +1,4 @@
-package com.example.movieapp.controll.local;
+package com.example.movieapp.control.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
