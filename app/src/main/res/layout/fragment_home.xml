@@ -40,61 +40,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tablayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:background="@color/yellow"
-                app:tabSelectedTextColor="#AC2626"
-                app:tabTextColor="#9B9696">
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Home" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TV Shows" />
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Movies" />
-
-
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Kids" />
-
-            </com.google.android.material.tabs.TabLayout>
-
-            <RelativeLayout
-                android:id="@+id/relative1"
-                android:layout_width="match_parent"
-                android:layout_height="500dp">
-
-                <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/banner_ViewPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tab_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerInParent="true"
-                    android:background="#0DFFFFFF"
-                    app:tabBackground="@drawable/indicator_selector"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabMaxWidth="15dp" />
-
-            </RelativeLayout>
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/main_recycler"
                 android:layout_width="match_parent"

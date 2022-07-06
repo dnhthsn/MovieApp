@@ -2,6 +2,8 @@ package com.example.movieapp.view.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.presenter.LoginPresenter;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.NetworkChangeListener;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
@@ -34,6 +37,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private Repository repository;
     private SharedPreference sharedPreference;
     private LoginPresenter loginPresenter;
+    private NetworkChangeListener networkChangeListener;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -56,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
         sharedPreference = new SharedPreference(this);
         loginPresenter = new LoginPresenter(this);
+        networkChangeListener = new NetworkChangeListener();
 
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +120,19 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    protected void onStart() {
+        IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeListener, intentFilter);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        unregisterReceiver(networkChangeListener);
+        super.onStop();
     }
 
     @Override

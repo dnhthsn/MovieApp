@@ -45,5 +45,6 @@ public interface Const {
         String created = "Created success fully";
         String update = "Profile info update successfully";
         String login = "Logged in Successfully";
+        String connected = "Internet connected";
     }
 }
