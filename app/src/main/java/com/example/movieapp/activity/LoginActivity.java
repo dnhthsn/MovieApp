@@ -14,18 +14,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
+import com.example.movieapp.control.Repository;
 import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.control.rest.Callback;
-import com.example.movieapp.control.Repository;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.presenter.interfaces.LoginInterface;
-import com.example.movieapp.presenter.presenters.LoginPresenter;
+import com.example.movieapp.presenter.LoginPresenter;
 import com.example.movieapp.util.Const;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity implements LoginInterface {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginUser {
     private EditText inputName;
     private TextInputEditText inputPassword;
     private Button clickLogin;
@@ -93,17 +92,6 @@ public class LoginActivity extends AppCompatActivity implements LoginInterface {
                             } else {
                                 sharedPreference.removeUser();
                             }
-//                            for (Users users : list) {
-//                                if (users.getName().equals(name) && users.getPassword().equals(password)) {
-//                                    sharedPreference.saveCurrentUser(users);
-//                                    MainActivity.starter(LoginActivity.this);
-//                                    wrongInfo.setText("");
-//                                    finish();
-//                                    break;
-//                                } else {
-//                                    wrongInfo.setText(Const.Error.information);
-//                                }
-//                            }
                             loginPresenter.login(name, password);
                         }
                     }

@@ -13,19 +13,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.model.Admins;
-import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.control.Repository;
+import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.model.Admins;
+import com.example.movieapp.presenter.LoginAdminPresenter;
 import com.example.movieapp.util.Const;
 
 import java.util.List;
 
-public class LoginAdminActivity extends AppCompatActivity {
+public class LoginAdminActivity extends AppCompatActivity implements LoginAdminPresenter.LoginAdmin {
     private EditText inputName, inputPassword;
     private Button clickLogin;
     private ImageView clickBack;
 
     private Repository repository;
+    private LoginAdminPresenter loginAdminPresenter;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginAdminActivity.class);
@@ -49,6 +51,8 @@ public class LoginAdminActivity extends AppCompatActivity {
             }
         });
 
+        loginAdminPresenter = new LoginAdminPresenter(this);
+
         repository = new Repository();
         repository.getAdmin(new Callback() {
             @Override
@@ -64,19 +68,22 @@ public class LoginAdminActivity extends AppCompatActivity {
                         } else if (TextUtils.isEmpty(password)) {
                             Toast.makeText(LoginAdminActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
                         } else {
-                            for (Admins admins : list) {
-                                if (admins.getName().equals(name) && admins.getPassword().equals(password)) {
-                                    Toast.makeText(LoginAdminActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
-                                    AddMovieActivity.starter(LoginAdminActivity.this);
-                                    break;
-                                } else {
-                                    Toast.makeText(LoginAdminActivity.this, Const.Error.information, Toast.LENGTH_SHORT).show();
-                                }
-                            }
+                            loginAdminPresenter.login(name, password);
                         }
                     }
                 });
             }
         });
+    }
+
+    @Override
+    public void loginSuccess(Admins admins) {
+        Toast.makeText(LoginAdminActivity.this, Const.Success.login, Toast.LENGTH_SHORT).show();
+        AddMovieActivity.starter(LoginAdminActivity.this);
+    }
+
+    @Override
+    public void loginError(Admins admins) {
+        Toast.makeText(LoginAdminActivity.this, Const.Error.information, Toast.LENGTH_SHORT).show();
     }
 }

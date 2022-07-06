@@ -1,18 +1,17 @@
-package com.example.movieapp.presenter.presenters;
+package com.example.movieapp.presenter;
 
 import com.example.movieapp.control.Repository;
 import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.presenter.interfaces.LoginInterface;
 
 import java.util.List;
 
 public class LoginPresenter {
-    private LoginInterface loginInterface;
+    private LoginUser loginUser;
     private Repository repository;
 
-    public LoginPresenter(LoginInterface loginInterface) {
-        this.loginInterface = loginInterface;
+    public LoginPresenter(LoginUser loginUser) {
+        this.loginUser = loginUser;
         this.repository = new Repository();
     }
 
@@ -23,13 +22,18 @@ public class LoginPresenter {
                 super.getUser(list);
                 for (Users users : list){
                     if (users.getName().equals(name) && users.getPassword().equals(password)) {
-                        loginInterface.loginSuccess(users);
+                        loginUser.loginSuccess(users);
                         break;
                     } else {
-                        loginInterface.loginError(users);
+                        loginUser.loginError(users);
                     }
                 }
             }
         });
+    }
+
+    public interface LoginUser {
+        void loginSuccess(Users users);
+        void loginError(Users users);
     }
 }
