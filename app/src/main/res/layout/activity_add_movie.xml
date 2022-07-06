@@ -6,7 +6,7 @@
     android:background="#CDC366"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".activity.AddMovieActivity">
+    tools:context=".view.activity.AddMovieActivity">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_logo"

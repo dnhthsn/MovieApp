@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.movieapp.R;
-import com.example.movieapp.activity.VideoPlayerActivity;
+import com.example.movieapp.view.activity.VideoPlayerActivity;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 

@@ -1,4 +1,4 @@
-package com.example.movieapp.fragment;
+package com.example.movieapp.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.activity.MovieDetailsActivity;
+import com.example.movieapp.view.activity.MovieDetailsActivity;
 import com.example.movieapp.adapter.SearchMovieAdapter;
 import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.control.Repository;

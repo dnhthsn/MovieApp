@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.movieapp.activity.MovieDetailsActivity;
+import com.example.movieapp.view.activity.MovieDetailsActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;

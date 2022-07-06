@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.movieapp.fragment.FragmentHome;
-import com.example.movieapp.fragment.FragmentSearch;
+import com.example.movieapp.view.fragment.FragmentHome;
+import com.example.movieapp.view.fragment.FragmentSearch;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {

@@ -12,35 +12,35 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp">
         <activity
-            android:name=".activity.InformationActivity"
+            android:name=".view.activity.InformationActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.ForgetPasswordActivity"
+            android:name=".view.activity.ForgetPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.EditInformationActivity"
+            android:name=".view.activity.EditInformationActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginAdminActivity"
+            android:name=".view.activity.LoginAdminActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.AddMovieActivity"
+            android:name=".view.activity.AddMovieActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.VideoPlayerActivity"
+            android:name=".view.activity.VideoPlayerActivity"
             android:configChanges="orientation|screenSize|layoutDirection"
             android:exported="false" />
         <activity
-            android:name=".activity.MovieDetailsActivity"
+            android:name=".view.activity.MovieDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.SignUpActivity"
+            android:name=".view.activity.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".view.activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.WelcomeActivity"
+            android:name=".view.activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:exported="false" />
     </application>
 

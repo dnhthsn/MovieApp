@@ -1,4 +1,4 @@
-package com.example.movieapp.activity;
+package com.example.movieapp.view.activity;
 
 import android.content.Context;
 import android.content.Intent;

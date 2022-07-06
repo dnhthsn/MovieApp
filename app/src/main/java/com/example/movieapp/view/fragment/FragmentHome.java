@@ -1,4 +1,4 @@
-package com.example.movieapp.fragment;
+package com.example.movieapp.view.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.movieapp.R;
-import com.example.movieapp.activity.InformationActivity;
+import com.example.movieapp.view.activity.InformationActivity;
 import com.example.movieapp.adapter.BannerMoviesPagerAdapter;
 import com.example.movieapp.adapter.MainRecyclerAdapter;
 import com.example.movieapp.control.rest.Callback;
