@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.control.rest.Callback;
-import com.example.movieapp.control.rest.Repository;
+import com.example.movieapp.control.Repository;
 import com.example.movieapp.util.Const;
 
 import java.util.List;

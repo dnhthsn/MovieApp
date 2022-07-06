@@ -16,14 +16,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.control.rest.Callback;
-import com.example.movieapp.control.rest.Repository;
+import com.example.movieapp.control.Repository;
 import com.example.movieapp.model.Users;
+import com.example.movieapp.presenter.interfaces.LoginInterface;
+import com.example.movieapp.presenter.presenters.LoginPresenter;
 import com.example.movieapp.util.Const;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginInterface {
     private EditText inputName;
     private TextInputEditText inputPassword;
     private Button clickLogin;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private Repository repository;
     private SharedPreference sharedPreference;
+    private LoginPresenter loginPresenter;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -53,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         wrongInfo = findViewById(R.id.wrong_info);
 
         sharedPreference = new SharedPreference(this);
+        loginPresenter = new LoginPresenter(this);
 
         loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,17 +93,18 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 sharedPreference.removeUser();
                             }
-                            for (Users users : list) {
-                                if (users.getName().equals(name) && users.getPassword().equals(password)) {
-                                    sharedPreference.saveCurrentUser(users);
-                                    MainActivity.starter(LoginActivity.this);
-                                    wrongInfo.setText("");
-                                    finish();
-                                    break;
-                                } else {
-                                    wrongInfo.setText(Const.Error.information);
-                                }
-                            }
+//                            for (Users users : list) {
+//                                if (users.getName().equals(name) && users.getPassword().equals(password)) {
+//                                    sharedPreference.saveCurrentUser(users);
+//                                    MainActivity.starter(LoginActivity.this);
+//                                    wrongInfo.setText("");
+//                                    finish();
+//                                    break;
+//                                } else {
+//                                    wrongInfo.setText(Const.Error.information);
+//                                }
+//                            }
+                            loginPresenter.login(name, password);
                         }
                     }
                 });
@@ -122,5 +127,18 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+    }
+
+    @Override
+    public void loginSuccess(Users users) {
+        sharedPreference.saveCurrentUser(users);
+        MainActivity.starter(LoginActivity.this);
+        wrongInfo.setText("");
+        finish();
+    }
+
+    @Override
+    public void loginError(Users users) {
+        wrongInfo.setText(Const.Error.information);
     }
 }

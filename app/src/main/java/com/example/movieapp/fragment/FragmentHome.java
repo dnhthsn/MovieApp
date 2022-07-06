@@ -18,7 +18,7 @@ import com.example.movieapp.activity.InformationActivity;
 import com.example.movieapp.adapter.BannerMoviesPagerAdapter;
 import com.example.movieapp.adapter.MainRecyclerAdapter;
 import com.example.movieapp.control.rest.Callback;
-import com.example.movieapp.control.rest.Repository;
+import com.example.movieapp.control.Repository;
 import com.example.movieapp.model.AllCategory;
 import com.example.movieapp.model.Movies;
 import com.google.android.material.tabs.TabLayout;

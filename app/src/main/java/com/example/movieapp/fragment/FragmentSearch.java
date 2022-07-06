@@ -16,7 +16,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.activity.MovieDetailsActivity;
 import com.example.movieapp.adapter.SearchMovieAdapter;
 import com.example.movieapp.control.rest.Callback;
-import com.example.movieapp.control.rest.Repository;
+import com.example.movieapp.control.Repository;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 

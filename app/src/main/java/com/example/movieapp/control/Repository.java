@@ -1,10 +1,11 @@
-package com.example.movieapp.control.rest;
+package com.example.movieapp.control;
 
 import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.model.Users;
