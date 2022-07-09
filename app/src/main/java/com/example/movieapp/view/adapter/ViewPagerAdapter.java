@@ -1,4 +1,4 @@
-package com.example.movieapp.adapter;
+package com.example.movieapp.view.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -16,6 +16,11 @@ public class Users implements Serializable {
         this.gender = gender;
     }
 
+    public Users(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
     public String getName() {
         return name;
     }

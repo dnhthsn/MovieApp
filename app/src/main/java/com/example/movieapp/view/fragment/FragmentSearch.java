@@ -9,26 +9,29 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.view.activity.MovieDetailsActivity;
-import com.example.movieapp.adapter.SearchMovieAdapter;
-import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.control.Repository;
+import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.view.activity.MovieDetailsActivity;
+import com.example.movieapp.view.adapter.SearchMovieAdapter;
+import com.example.movieapp.viewmodel.SearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentSearch extends Fragment implements SearchMovieAdapter.onClickListener{
+public class FragmentSearch extends Fragment implements SearchMovieAdapter.onClickListener {
     private SearchView searchMovie;
     private RecyclerView movieLists;
 
     private Repository repository;
     private SearchMovieAdapter searchMovieAdapter;
+    private SearchViewModel searchViewModel;
     private List<Movies> movies;
     private List<Movies> filter;
 
@@ -50,19 +53,27 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
         filter = new ArrayList<>();
 
         repository = new Repository();
-        repository.getMovie(new Callback() {
-            @Override
-            public void getMovie(List<Movies> list) {
-                super.getMovie(list);
-                for (Movies movie : list){
-                    movies.add(movie);
-                }
-                searchMovieAdapter.notifyDataSetChanged();
-            }
-        });
 
+        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
+        searchViewModel = new SearchViewModel();
+
+
+//        repository = new Repository();
+//        repository.getMovie(new Callback() {
+//            @Override
+//            public void getMovie(List<Movies> list) {
+//                super.getMovie(list);
+//                for (Movies movie : list){
+//                    movies.add(movie);
+//                }
+//                searchMovieAdapter.notifyDataSetChanged();
+//            }
+//        });
+        searchMovieAdapter = new SearchMovieAdapter();
+        searchViewModel.getMovies().observe(getViewLifecycleOwner(), movies1 -> {
+            searchMovieAdapter.setMovies(movies1);
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        searchMovieAdapter = new SearchMovieAdapter(movies);
         searchMovieAdapter.setOnClickListener(this);
         movieLists.setLayoutManager(layoutManager);
         movieLists.setAdapter(searchMovieAdapter);
@@ -80,11 +91,13 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
                     @Override
                     public void getMovie(List<Movies> list) {
                         super.getMovie(list);
-                        for (Movies movie : list){
-                            if(movie.getName().toLowerCase().contains(s.toLowerCase())){
-                                filter.add(movie);
+                        if (list != null) {
+                            for (Movies movie : list) {
+                                if (movie.getName().toLowerCase().contains(s.toLowerCase())) {
+                                    filter.add(movie);
+                                }
+                                searchMovieAdapter.filterList(filter);
                             }
-                            searchMovieAdapter.filterList(filter);
                         }
                     }
                 });
@@ -94,8 +107,8 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
     }
 
     @Override
-    public void onClick(int position, View view) {
-        if (filter.isEmpty()){
+    public void onSearchClick(int position, View view) {
+        if (filter.isEmpty()) {
             Bundle bundle = new Bundle();
             bundle.putString(Const.Sender.movieName, movies.get(position).getName());
             bundle.putString(Const.Sender.movieImageUrl, movies.get(position).getImage());

@@ -1,4 +1,4 @@
-package com.example.movieapp.adapter;
+package com.example.movieapp.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;

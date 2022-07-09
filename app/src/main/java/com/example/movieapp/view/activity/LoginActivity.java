@@ -18,14 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.control.Repository;
 import com.example.movieapp.control.local.SharedPreference;
-import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.databinding.ActivityLoginBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.presenter.LoginPresenter;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.util.NetworkChangeListener;
+import com.example.movieapp.viewmodel.LoginViewModel;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginUser {
     private EditText inputName;
@@ -38,6 +37,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private SharedPreference sharedPreference;
     private LoginPresenter loginPresenter;
     private NetworkChangeListener networkChangeListener;
+
+    private ActivityLoginBinding activityLoginBinding;
+    private LoginViewModel loginViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -57,6 +59,11 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         loginAdmin = findViewById(R.id.login_admin);
         forgetPassword = findViewById(R.id.forget_password);
         wrongInfo = findViewById(R.id.wrong_info);
+
+//        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+//        activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
+//        setContentView(activityLoginBinding.getRoot());
+
 
         sharedPreference = new SharedPreference(this);
         loginPresenter = new LoginPresenter(this);
@@ -79,28 +86,23 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         clickLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                repository = new Repository();
-                repository.getUser(new Callback() {
-                    @Override
-                    public void getUser(List<Users> list) {
-                        super.getUser(list);
+                String name = inputName.getText().toString();
+                String password = inputPassword.getText().toString();
 
-                        String name = inputName.getText().toString();
-                        String password = inputPassword.getText().toString();
-                        if (TextUtils.isEmpty(name)) {
-                            Toast.makeText(LoginActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
-                        } else if (TextUtils.isEmpty(password)) {
-                            Toast.makeText(LoginActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
-                        } else {
-                            if (rememberUser.isChecked()) {
-                                sharedPreference.saveUser(name, password);
-                            } else {
-                                sharedPreference.removeUser();
-                            }
-                            loginPresenter.login(name, password);
-                        }
+                if (TextUtils.isEmpty(name)) {
+                    Toast.makeText(LoginActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(password)) {
+                    Toast.makeText(LoginActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (rememberUser.isChecked()) {
+                        sharedPreference.saveUser(name, password);
+                    } else {
+                        sharedPreference.removeUser();
                     }
-                });
+                    loginPresenter.login(name, password);
+//                    loginViewModel.login(LoginActivity.this, name, password);
+//                    wrongInfo.setText(loginViewModel.getMessage());
+                }
             }
         });
 

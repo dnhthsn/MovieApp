@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.22870370370370371" />
         <entry key="app/src/main/res/drawable-v24/_button_round_corner.xml" value="0.24259259259259258" />
         <entry key="app/src/main/res/drawable-v24/round_corner_white.xml" value="0.2638888888888889" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2638888888888889" />
@@ -14,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.21388888888888888" />
         <entry key="app/src/main/res/drawable/indicator_selector.xml" value="0.2638888888888889" />
         <entry key="app/src/main/res/drawable/selected.xml" value="0.2638888888888889" />
+        <entry key="app/src/main/res/drawable/selector_bottom_navigation.xml" value="0.24351851851851852" />
         <entry key="app/src/main/res/drawable/unselected.xml" value="0.2638888888888889" />
         <entry key="app/src/main/res/layout/activity_add_movie.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_edit_information.xml" value="0.25" />
@@ -33,6 +35,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/item_banner_movies.xml" value="0.17074275362318841" />
+        <entry key="app/src/main/res/layout/item_categories.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_category_movies.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/item_main_recycler.xml" value="0.17074275362318841" />
         <entry key="app/src/main/res/layout/item_search_movie.xml" value="0.17074275362318841" />

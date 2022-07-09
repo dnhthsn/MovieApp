@@ -1,4 +1,4 @@
-package com.example.movieapp.adapter;
+package com.example.movieapp.view.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -23,8 +23,9 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     private List<Movies> movies;
     private onClickListener onClickListener;
 
-    public SearchMovieAdapter(List<Movies> movies) {
+    public void setMovies(List<Movies> movies){
         this.movies = movies;
+        notifyDataSetChanged();
     }
 
     public void setOnClickListener(onClickListener onClickListener) {
@@ -77,11 +78,11 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
         @Override
         public void onClick(View view) {
             if (onClickListener != null){
-                onClickListener.onClick(getAdapterPosition(), view);
+                onClickListener.onSearchClick(getAdapterPosition(), view);
             }
         }
     }
     public interface onClickListener{
-        void onClick(int position, View view);
+        void onSearchClick(int position, View view);
     }
 }

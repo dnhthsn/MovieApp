@@ -83,7 +83,9 @@ public class Repository {
                     movies = data.getValue(Movies.class);
                     list.add(movies);
                 }
-                callback.getMovie(list);
+                if (list != null){
+                    callback.getMovie(list);
+                }
             }
 
             @Override
