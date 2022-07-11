@@ -12,14 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movies;
-import com.example.movieapp.control.Repository;
+import com.example.movieapp.presenter.AddMoviePresenter;
 
-public class AddMovieActivity extends AppCompatActivity {
+public class AddMovieActivity extends AppCompatActivity implements AddMoviePresenter.AddMovie{
     private EditText inputMovieName, inputImageUrl, inputVideoUrl;
     private Button addMovie, logOut;
     private Spinner movieGenre;
 
-    private Repository repository;
+    private AddMoviePresenter addMoviePresenter;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, AddMovieActivity.class);
@@ -38,7 +38,7 @@ public class AddMovieActivity extends AppCompatActivity {
         logOut = findViewById(R.id.log_out);
         movieGenre = findViewById(R.id.movie_genre);
 
-        repository = new Repository();
+        addMoviePresenter = new AddMoviePresenter(this);
         addMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,12 +47,7 @@ public class AddMovieActivity extends AppCompatActivity {
                 String video = inputVideoUrl.getText().toString();
                 String genre = movieGenre.getSelectedItem().toString();
                 Movies movies = new Movies(name, image, video, genre);
-                repository.addMovie(movies, AddMovieActivity.this);
-
-                inputMovieName.setText("");
-                inputImageUrl.setText("");
-                inputVideoUrl.setText("");
-                movieGenre.setSelection(0);
+                addMoviePresenter.addMovie(AddMovieActivity.this, movies);
             }
         });
 
@@ -62,5 +57,13 @@ public class AddMovieActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    @Override
+    public void addMovieSuccess() {
+        inputMovieName.setText("");
+        inputImageUrl.setText("");
+        inputVideoUrl.setText("");
+        movieGenre.setSelection(0);
     }
 }

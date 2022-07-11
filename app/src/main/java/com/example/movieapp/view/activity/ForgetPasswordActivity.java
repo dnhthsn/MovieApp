@@ -13,7 +13,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.control.Repository;
 import com.example.movieapp.presenter.ForgetPasswordPresenter;
 import com.example.movieapp.util.Const;
 
@@ -22,7 +21,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
     private ImageView clickBack;
     private Button clickConfirm;
 
-    private Repository repository;
     private ForgetPasswordPresenter forgetPasswordPresenter;
 
     public static void starter(Context context) {
@@ -41,7 +39,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
         clickBack = findViewById(R.id.click_back);
         clickConfirm = findViewById(R.id.click_confirm);
 
-        repository = new Repository();
         forgetPasswordPresenter = new ForgetPasswordPresenter(this);
 
         clickBack.setOnClickListener(new View.OnClickListener() {
@@ -72,33 +69,6 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
             }
         });
     }
-
-//    public void updatePass(String name, String password) {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setView(LayoutInflater.from(ForgetPasswordActivity.this).inflate(R.layout.dialog, null));
-//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//
-//            }
-//        });
-//
-//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                Users users = new Users();
-//                users.setName(name);
-//                users.setPassword(password);
-//
-//                repository.updatePassword(users, ForgetPasswordActivity.this);
-//
-//                LoginActivity.starter(ForgetPasswordActivity.this);
-//            }
-//        });
-//
-//        AlertDialog dialog = builder.create();
-//        dialog.show();
-//    }
 
     @Override
     public void changePassSuccess(Context context) {
