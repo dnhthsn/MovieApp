@@ -14,9 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.view.adapter.CategoryAdapter;
-import com.example.movieapp.view.adapter.MainRecyclerAdapter;
-import com.example.movieapp.view.adapter.SearchMovieAdapter;
 import com.example.movieapp.control.Repository;
 import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.AllCategory;
@@ -24,6 +21,9 @@ import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.view.activity.InformationActivity;
 import com.example.movieapp.view.activity.MovieDetailsActivity;
+import com.example.movieapp.view.adapter.CategoryAdapter;
+import com.example.movieapp.view.adapter.MainRecyclerAdapter;
+import com.example.movieapp.view.adapter.SearchMovieAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,7 +145,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
     }
 
     @Override
-    public void onClick(int position, View view) {
+    public void onClick(int position, View view, int selectedItem) {
         String genre = categories.get(position);
         repository.getMovie(new Callback() {
             @Override

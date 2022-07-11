@@ -1,5 +1,6 @@
 package com.example.movieapp.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,12 @@ import java.util.List;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
     private List<String> categories;
     private clickListener clickListener;
+    private int selectedItem;
+
 
     public void setClickListener(CategoryAdapter.clickListener clickListener) {
         this.clickListener = clickListener;
+        selectedItem = 0;
     }
 
     public CategoryAdapter(List<String> categories) {
@@ -31,8 +35,24 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.categoryName.setText(categories.get(position));
+//        holder.itemView.setTag(categories.get(position));
+//        if (selectedItem == position){
+//            holder.itemView.setBackgroundColor(Color.RED);
+//        } else {
+//            holder.itemView.setBackgroundColor(Color.BLACK);
+//        }
+//        holder.categoryName.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                int previousItem = selectedItem;
+//                selectedItem = position;
+//
+//                notifyItemChanged(previousItem);
+//                notifyItemChanged(position);
+//            }
+//        });
     }
 
     @Override
@@ -52,12 +72,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         @Override
         public void onClick(View view) {
             if (clickListener != null){
-                clickListener.onClick(getAdapterPosition(), view);
+                clickListener.onClick(getAdapterPosition(), view, selectedItem);
             }
         }
     }
 
     public interface clickListener{
-        void onClick(int position, View view);
+        void onClick(int position, View view, int selectedItem);
     }
 }

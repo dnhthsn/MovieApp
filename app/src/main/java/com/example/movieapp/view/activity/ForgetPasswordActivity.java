@@ -1,12 +1,9 @@
 package com.example.movieapp.view.activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,16 +13,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.model.Users;
 import com.example.movieapp.control.Repository;
+import com.example.movieapp.presenter.ForgetPasswordPresenter;
 import com.example.movieapp.util.Const;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgetPasswordActivity extends AppCompatActivity implements ForgetPasswordPresenter.ForgetPassword{
     private EditText inputName, inputPassword, inputRepass;
     private ImageView clickBack;
     private Button clickConfirm;
 
     private Repository repository;
+    private ForgetPasswordPresenter forgetPasswordPresenter;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, ForgetPasswordActivity.class);
@@ -44,6 +42,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         clickConfirm = findViewById(R.id.click_confirm);
 
         repository = new Repository();
+        forgetPasswordPresenter = new ForgetPasswordPresenter(this);
 
         clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,36 +65,41 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                 } else if (!repass.equals(password)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.notmatch, Toast.LENGTH_SHORT).show();
                 } else {
-                    updatePass(name, password);
+                    forgetPasswordPresenter.changePassword(ForgetPasswordActivity.this, name, password);
                 }
             }
         });
     }
 
-    public void updatePass(String name, String password) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(LayoutInflater.from(ForgetPasswordActivity.this).inflate(R.layout.dialog, null));
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+//    public void updatePass(String name, String password) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setView(LayoutInflater.from(ForgetPasswordActivity.this).inflate(R.layout.dialog, null));
+//        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//
+//            }
+//        });
+//
+//        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                Users users = new Users();
+//                users.setName(name);
+//                users.setPassword(password);
+//
+//                repository.updatePassword(users, ForgetPasswordActivity.this);
+//
+//                LoginActivity.starter(ForgetPasswordActivity.this);
+//            }
+//        });
+//
+//        AlertDialog dialog = builder.create();
+//        dialog.show();
+//    }
 
-            }
-        });
-
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Users users = new Users();
-                users.setName(name);
-                users.setPassword(password);
-
-                repository.updatePassword(users, ForgetPasswordActivity.this);
-
-                LoginActivity.starter(ForgetPasswordActivity.this);
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
+    @Override
+    public void changePassSuccess(Context context) {
+        LoginActivity.starter(context);
     }
 }

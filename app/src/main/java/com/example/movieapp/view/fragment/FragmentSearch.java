@@ -9,7 +9,6 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +19,6 @@ import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.view.activity.MovieDetailsActivity;
 import com.example.movieapp.view.adapter.SearchMovieAdapter;
-import com.example.movieapp.viewmodel.SearchViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,6 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
 
     private Repository repository;
     private SearchMovieAdapter searchMovieAdapter;
-    private SearchViewModel searchViewModel;
     private List<Movies> movies;
     private List<Movies> filter;
 
@@ -54,27 +51,21 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
 
         repository = new Repository();
 
-        searchViewModel = new ViewModelProvider(this).get(SearchViewModel.class);
-        searchViewModel = new SearchViewModel();
-
-
-//        repository = new Repository();
-//        repository.getMovie(new Callback() {
-//            @Override
-//            public void getMovie(List<Movies> list) {
-//                super.getMovie(list);
-//                for (Movies movie : list){
-//                    movies.add(movie);
-//                }
-//                searchMovieAdapter.notifyDataSetChanged();
-//            }
-//        });
-        searchMovieAdapter = new SearchMovieAdapter();
-        searchViewModel.getMovies().observe(getViewLifecycleOwner(), movies1 -> {
-            searchMovieAdapter.setMovies(movies1);
+        repository = new Repository();
+        repository.getMovie(new Callback() {
+            @Override
+            public void getMovie(List<Movies> list) {
+                super.getMovie(list);
+                for (Movies movie : list){
+                    movies.add(movie);
+                }
+                searchMovieAdapter.notifyDataSetChanged();
+            }
         });
+        searchMovieAdapter = new SearchMovieAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         searchMovieAdapter.setOnClickListener(this);
+        searchMovieAdapter.setMovies(movies);
         movieLists.setLayoutManager(layoutManager);
         movieLists.setAdapter(searchMovieAdapter);
 

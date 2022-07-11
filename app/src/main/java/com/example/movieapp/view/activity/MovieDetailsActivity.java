@@ -15,7 +15,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.util.Const;
 
 public class MovieDetailsActivity extends AppCompatActivity {
-    private ImageView movieImage;
+    private ImageView movieImage, clickBack;
     private TextView movieName;
     private Button playVideo;
 
@@ -35,6 +35,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         movieImage = findViewById(R.id.movie_image);
         movieName = findViewById(R.id.movie_name);
         playVideo = findViewById(R.id.play_button);
+        clickBack = findViewById(R.id.click_back);
 
         mName = getIntent().getStringExtra(Const.Sender.movieName);
         mImage = getIntent().getStringExtra(Const.Sender.movieImageUrl);
@@ -50,5 +51,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
 
+        clickBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 }

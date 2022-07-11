@@ -16,14 +16,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.movieapp.R;
-import com.example.movieapp.control.Repository;
 import com.example.movieapp.control.local.SharedPreference;
-import com.example.movieapp.databinding.ActivityLoginBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.presenter.LoginPresenter;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.util.NetworkChangeListener;
-import com.example.movieapp.viewmodel.LoginViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginUser {
@@ -33,13 +30,9 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     private TextView createAccount, loginAdmin, forgetPassword, wrongInfo;
     private CheckBox rememberUser;
 
-    private Repository repository;
     private SharedPreference sharedPreference;
     private LoginPresenter loginPresenter;
     private NetworkChangeListener networkChangeListener;
-
-    private ActivityLoginBinding activityLoginBinding;
-    private LoginViewModel loginViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -59,11 +52,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         loginAdmin = findViewById(R.id.login_admin);
         forgetPassword = findViewById(R.id.forget_password);
         wrongInfo = findViewById(R.id.wrong_info);
-
-//        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-//        activityLoginBinding = ActivityLoginBinding.inflate(getLayoutInflater());
-//        setContentView(activityLoginBinding.getRoot());
-
 
         sharedPreference = new SharedPreference(this);
         loginPresenter = new LoginPresenter(this);
@@ -100,8 +88,6 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
                         sharedPreference.removeUser();
                     }
                     loginPresenter.login(name, password);
-//                    loginViewModel.login(LoginActivity.this, name, password);
-//                    wrongInfo.setText(loginViewModel.getMessage());
                 }
             }
         });
