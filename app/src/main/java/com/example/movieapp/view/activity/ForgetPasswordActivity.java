@@ -51,6 +51,8 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
             }
         });
 
+
+
         clickConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

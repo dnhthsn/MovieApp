@@ -1,7 +1,6 @@
 package com.example.movieapp.view.activity;
 
 import android.annotation.SuppressLint;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -47,8 +46,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(WelcomeActivity.this, R.raw.intro_music);
-        mediaPlayer.start();
         super.onStart();
         new CountDown().start();
     }
