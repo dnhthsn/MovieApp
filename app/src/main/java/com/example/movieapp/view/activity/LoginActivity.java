@@ -5,34 +5,24 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
 import com.example.movieapp.control.local.SharedPreference;
+import com.example.movieapp.databinding.ActivityLoginBinding;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.presenter.LoginPresenter;
-import com.example.movieapp.util.Const;
 import com.example.movieapp.util.NetworkChangeListener;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.movieapp.viewmodel.LoginViewModel;
 
-public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginUser {
-    private EditText inputName;
-    private TextInputEditText inputPassword;
-    private Button clickLogin;
-    private TextView createAccount, loginAdmin, forgetPassword, wrongInfo;
-    private CheckBox rememberUser;
-
+public class LoginActivity extends AppCompatActivity {
     private SharedPreference sharedPreference;
-    private LoginPresenter loginPresenter;
     private NetworkChangeListener networkChangeListener;
+
+    private ActivityLoginBinding activityLoginBinding;
+    private LoginViewModel loginViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -44,51 +34,24 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        inputName = findViewById(R.id.input_name);
-        inputPassword = findViewById(R.id.input_password);
-        clickLogin = findViewById(R.id.click_login);
-        createAccount = findViewById(R.id.create_account);
-        rememberUser = findViewById(R.id.remember_user);
-        loginAdmin = findViewById(R.id.login_admin);
-        forgetPassword = findViewById(R.id.forget_password);
-        wrongInfo = findViewById(R.id.wrong_info);
-
         sharedPreference = new SharedPreference(this);
-        loginPresenter = new LoginPresenter(this);
         networkChangeListener = new NetworkChangeListener();
 
-        loginAdmin.setOnClickListener(new View.OnClickListener() {
+        activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        loginViewModel = new LoginViewModel(this);
+        activityLoginBinding.setUserViewModel(loginViewModel);
+
+        activityLoginBinding.loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginAdminActivity.starter(LoginActivity.this);
             }
         });
 
-        forgetPassword.setOnClickListener(new View.OnClickListener() {
+        activityLoginBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ForgetPasswordActivity.starter(LoginActivity.this);
-            }
-        });
-
-        clickLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String password = inputPassword.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(LoginActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
-                } else {
-                    if (rememberUser.isChecked()) {
-                        sharedPreference.saveUser(name, password);
-                    } else {
-                        sharedPreference.removeUser();
-                    }
-                    loginPresenter.login(name, password);
-                }
             }
         });
 
@@ -98,10 +61,10 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         String name = users.getName();
         String password = users.getPassword();
 
-        inputName.setText(name);
-        inputPassword.setText(password);
+        activityLoginBinding.inputName.setText(name);
+        activityLoginBinding.inputPassword.setText(password);
 
-        createAccount.setOnClickListener(view -> {
+        activityLoginBinding.createAccount.setOnClickListener(view -> {
             SignUpActivity.starter(LoginActivity.this);
         });
     }
@@ -121,18 +84,5 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     protected void onStop() {
         unregisterReceiver(networkChangeListener);
         super.onStop();
-    }
-
-    @Override
-    public void loginSuccess(Users users) {
-        sharedPreference.saveCurrentUser(users);
-        MainActivity.starter(LoginActivity.this);
-        wrongInfo.setText("");
-        finish();
-    }
-
-    @Override
-    public void loginError(Users users) {
-        wrongInfo.setText(Const.Error.information);
     }
 }

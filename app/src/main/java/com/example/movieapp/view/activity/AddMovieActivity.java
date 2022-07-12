@@ -4,22 +4,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
-import com.example.movieapp.model.Movies;
-import com.example.movieapp.presenter.AddMoviePresenter;
+import com.example.movieapp.databinding.ActivityAddMovieBinding;
+import com.example.movieapp.viewmodel.AddMovieViewModel;
 
-public class AddMovieActivity extends AppCompatActivity implements AddMoviePresenter.AddMovie{
-    private EditText inputMovieName, inputImageUrl, inputVideoUrl;
-    private Button addMovie, logOut;
-    private Spinner movieGenre;
-
-    private AddMoviePresenter addMoviePresenter;
+public class AddMovieActivity extends AppCompatActivity{
+    private ActivityAddMovieBinding binding;
+    private AddMovieViewModel addMovieViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, AddMovieActivity.class);
@@ -31,39 +26,27 @@ public class AddMovieActivity extends AppCompatActivity implements AddMoviePrese
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_movie);
 
-        inputMovieName = findViewById(R.id.input_movie_name);
-        inputImageUrl = findViewById(R.id.input_movie_image);
-        inputVideoUrl = findViewById(R.id.input_movie_video);
-        addMovie = findViewById(R.id.add_movie);
-        logOut = findViewById(R.id.log_out);
-        movieGenre = findViewById(R.id.movie_genre);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_movie);
+        addMovieViewModel = new AddMovieViewModel(this);
+        binding.setAddMovie(addMovieViewModel);
 
-        addMoviePresenter = new AddMoviePresenter(this);
-        addMovie.setOnClickListener(new View.OnClickListener() {
+        addMovieViewModel.setGenre(binding.movieGenre.getSelectedItem().toString());
+        binding.inputMovieName.setText(addMovieViewModel.getName());
+        binding.addMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = inputMovieName.getText().toString();
-                String image = inputImageUrl.getText().toString();
-                String video = inputVideoUrl.getText().toString();
-                String genre = movieGenre.getSelectedItem().toString();
-                Movies movies = new Movies(name, image, video, genre);
-                addMoviePresenter.addMovie(AddMovieActivity.this, movies);
+                binding.inputMovieName.setText("");
+                binding.inputMovieImage.setText("");
+                binding.inputMovieVideo.setText("");
+                binding.movieGenre.setSelection(0);
             }
         });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+        binding.logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-    }
-
-    @Override
-    public void addMovieSuccess() {
-        inputMovieName.setText("");
-        inputImageUrl.setText("");
-        inputVideoUrl.setText("");
-        movieGenre.setSelection(0);
     }
 }

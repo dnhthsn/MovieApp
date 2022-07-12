@@ -1,63 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#CDC366"
-    android:orientation="vertical"
-    android:padding="20dp"
-    tools:context=".view.activity.AddMovieActivity">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_logo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/logo" />
+    <data>
 
-    <EditText
-        android:id="@+id/input_movie_name"
+        <variable
+            name="addMovie"
+            type="com.example.movieapp.viewmodel.AddMovieViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:hint="Movie name" />
+        android:layout_height="match_parent"
+        android:background="#CDC366"
+        android:orientation="vertical"
+        android:padding="20dp"
+        tools:context=".view.activity.AddMovieActivity">
 
-    <EditText
-        android:id="@+id/input_movie_image"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:hint="Image Url" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_logo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/logo" />
 
-    <EditText
-        android:id="@+id/input_movie_video"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:hint="Video Url" />
+        <EditText
+            android:id="@+id/input_movie_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:hint="Movie name"
+            android:text="@={addMovie.name}" />
 
-    <Spinner
-        android:id="@+id/movie_genre"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:entries="@array/genres" />
+        <EditText
+            android:id="@+id/input_movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Image Url"
+            android:text="@={addMovie.image}" />
 
-    <Button
-        android:id="@+id/add_movie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@drawable/round_corner_button"
-        android:text="Add" />
+        <EditText
+            android:id="@+id/input_movie_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:hint="Video Url"
+            android:text="@={addMovie.video}" />
 
-    <Button
-        android:id="@+id/log_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:text="Log out" />
+        <Spinner
+            android:id="@+id/movie_genre"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:entries="@array/genres" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/add_movie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:onClick="@{()->addMovie.onClickAddMovie()}"
+            android:background="@drawable/round_corner_button"
+            android:text="Add" />
+
+        <Button
+            android:id="@+id/log_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:text="Log out" />
+
+    </LinearLayout>
+</layout>

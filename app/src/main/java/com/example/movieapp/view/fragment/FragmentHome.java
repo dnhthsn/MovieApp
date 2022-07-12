@@ -1,5 +1,8 @@
 package com.example.movieapp.view.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +28,13 @@ import com.example.movieapp.view.adapter.CategoryAdapter;
 import com.example.movieapp.view.adapter.MainRecyclerAdapter;
 import com.example.movieapp.view.adapter.SearchMovieAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class FragmentHome extends Fragment implements CategoryAdapter.clickListener, SearchMovieAdapter.onClickListener{
     private RecyclerView mainRecycler, categoryList;
@@ -58,6 +66,9 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         categoryList = view.findViewById(R.id.category_list);
         title = view.findViewById(R.id.text_title);
 
+        String url = "https://images.clipartlogo.com/files/istock/previews/1020/102071463-flat-design-avatar-male-character-icon-vector.jpg";
+        new GetImage().execute(url);
+
         homeCatListItem1 = new ArrayList<>();
         homeCatListItem2 = new ArrayList<>();
         homeCatListItem3 = new ArrayList<>();
@@ -87,16 +98,25 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
                 for (Movies movie : list) {
                     switch (movie.getGenre()) {
                         case "Horror":
-                            homeCatListItem4.add(movie);
+                            //while (homeCatListItem4.size() < 5){
+                                homeCatListItem4.add(movie);
+                            //}
                             break;
                         case "TV shows":
-                            homeCatListItem1.add(movie);
+                            //while (homeCatListItem1.size() < 5){
+                                homeCatListItem1.add(movie);
+                            //}
+
                             break;
                         case "Action":
-                            homeCatListItem3.add(movie);
+                            //while (homeCatListItem3.size() < 5){
+                                homeCatListItem3.add(movie);
+                            //}
                             break;
                         case "Kids":
-                            homeCatListItem2.add(movie);
+                            //while (homeCatListItem2.size() < 5){
+                                homeCatListItem2.add(movie);
+                            //}
                             break;
                     }
                 }
@@ -169,5 +189,33 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         bundle.putString(Const.Sender.movieImageUrl, movies.get(position).getImage());
         bundle.putString(Const.Sender.movieFile, movies.get(position).getVideo());
         MovieDetailsActivity.starter(getContext(), bundle);
+    }
+
+    class GetImage extends AsyncTask<String, Void, byte[]>{
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .build();
+        @Override
+        protected byte[] doInBackground(String... strings) {
+            Request.Builder builder = new Request.Builder();
+            builder.url(strings[0]);
+
+            Request request = builder.build();
+            try {
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().bytes();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(byte[] bytes) {
+            if (bytes.length > 0){
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                information.setImageBitmap(bitmap);
+            }
+            super.onPostExecute(bytes);
+        }
     }
 }
