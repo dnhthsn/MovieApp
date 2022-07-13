@@ -12,11 +12,10 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityForgetPasswordBinding;
-import com.example.movieapp.presenter.ForgetPasswordPresenter;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.viewmodel.UserViewModel;
 
-public class ForgetPasswordActivity extends AppCompatActivity implements ForgetPasswordPresenter.ForgetPassword{
+public class ForgetPasswordActivity extends AppCompatActivity{
     private ActivityForgetPasswordBinding binding;
     private UserViewModel userViewModel;
 
@@ -58,10 +57,5 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
                 }
             }
         });
-    }
-
-    @Override
-    public void changePassSuccess(Context context) {
-        LoginActivity.starter(context);
     }
 }
