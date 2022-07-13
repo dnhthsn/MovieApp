@@ -10,11 +10,12 @@ import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityAddMovieBinding;
-import com.example.movieapp.viewmodel.AddMovieViewModel;
+import com.example.movieapp.model.Movies;
+import com.example.movieapp.viewmodel.MovieViewModel;
 
 public class AddMovieActivity extends AppCompatActivity{
     private ActivityAddMovieBinding binding;
-    private AddMovieViewModel addMovieViewModel;
+    private MovieViewModel movieViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, AddMovieActivity.class);
@@ -27,14 +28,19 @@ public class AddMovieActivity extends AppCompatActivity{
         setContentView(R.layout.activity_add_movie);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_movie);
-        addMovieViewModel = new AddMovieViewModel(this);
-        binding.setAddMovie(addMovieViewModel);
+        movieViewModel = new MovieViewModel();
 
-        addMovieViewModel.setGenre(binding.movieGenre.getSelectedItem().toString());
-        binding.inputMovieName.setText(addMovieViewModel.getName());
         binding.addMovie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String name = binding.inputMovieName.getText().toString();
+                String image = binding.inputMovieImage.getText().toString();
+                String video = binding.inputMovieVideo.getText().toString();
+                String genre = binding.movieGenre.getSelectedItem().toString();
+
+                Movies movies = new Movies(name, image, video, genre);
+                movieViewModel.addMovie(movies, AddMovieActivity.this);
+
                 binding.inputMovieName.setText("");
                 binding.inputMovieImage.setText("");
                 binding.inputMovieVideo.setText("");

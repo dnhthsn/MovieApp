@@ -15,14 +15,14 @@ import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.databinding.ActivityLoginBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.NetworkChangeListener;
-import com.example.movieapp.viewmodel.LoginViewModel;
+import com.example.movieapp.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
     private SharedPreference sharedPreference;
     private NetworkChangeListener networkChangeListener;
 
-    private ActivityLoginBinding activityLoginBinding;
-    private LoginViewModel loginViewModel;
+    private ActivityLoginBinding binding;
+    private UserViewModel userViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -37,18 +37,34 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreference = new SharedPreference(this);
         networkChangeListener = new NetworkChangeListener();
 
-        activityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        loginViewModel = new LoginViewModel(this);
-        activityLoginBinding.setUserViewModel(loginViewModel);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        userViewModel = new UserViewModel(this);
 
-        activityLoginBinding.loginAdmin.setOnClickListener(new View.OnClickListener() {
+        binding.loginAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginAdminActivity.starter(LoginActivity.this);
             }
         });
 
-        activityLoginBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
+        binding.clickLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = binding.inputName.getText().toString();
+                String password = binding.inputPassword.getText().toString();
+
+                if (binding.rememberUser.isChecked()){
+                    sharedPreference.saveUser(name, password);
+                } else {
+                    sharedPreference.removeUser();
+                }
+
+                userViewModel.checkUser(name, password, LoginActivity.this);
+                binding.wrongInfo.setText(userViewModel.getMessage());
+            }
+        });
+
+        binding.forgetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ForgetPasswordActivity.starter(LoginActivity.this);
@@ -61,10 +77,10 @@ public class LoginActivity extends AppCompatActivity {
         String name = users.getName();
         String password = users.getPassword();
 
-        activityLoginBinding.inputName.setText(name);
-        activityLoginBinding.inputPassword.setText(password);
+        binding.inputName.setText(name);
+        binding.inputPassword.setText(password);
 
-        activityLoginBinding.createAccount.setOnClickListener(view -> {
+        binding.createAccount.setOnClickListener(view -> {
             SignUpActivity.starter(LoginActivity.this);
         });
     }

@@ -5,23 +5,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivityForgetPasswordBinding;
 import com.example.movieapp.presenter.ForgetPasswordPresenter;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.viewmodel.UserViewModel;
 
 public class ForgetPasswordActivity extends AppCompatActivity implements ForgetPasswordPresenter.ForgetPassword{
-    private EditText inputName, inputPassword, inputRepass;
-    private ImageView clickBack;
-    private Button clickConfirm;
-
-    private ForgetPasswordPresenter forgetPasswordPresenter;
+    private ActivityForgetPasswordBinding binding;
+    private UserViewModel userViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, ForgetPasswordActivity.class);
@@ -33,29 +30,22 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
-        inputName = findViewById(R.id.input_name);
-        inputPassword = findViewById(R.id.input_password);
-        inputRepass = findViewById(R.id.input_repassword);
-        clickBack = findViewById(R.id.click_back);
-        clickConfirm = findViewById(R.id.click_confirm);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_forget_password);
+        userViewModel = new UserViewModel(this);
 
-        forgetPasswordPresenter = new ForgetPasswordPresenter(this);
-
-        clickBack.setOnClickListener(new View.OnClickListener() {
+        binding.clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-
-
-        clickConfirm.setOnClickListener(new View.OnClickListener() {
+        binding.clickConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String password = inputPassword.getText().toString();
-                String repass = inputRepass.getText().toString();
+                String name = binding.inputName.getText().toString();
+                String password = binding.inputPassword.getText().toString();
+                String repass = binding.inputRepassword.getText().toString();
 
                 if (TextUtils.isEmpty(name)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
@@ -64,7 +54,7 @@ public class ForgetPasswordActivity extends AppCompatActivity implements ForgetP
                 } else if (!repass.equals(password)) {
                     Toast.makeText(ForgetPasswordActivity.this, Const.Error.notmatch, Toast.LENGTH_SHORT).show();
                 } else {
-                    forgetPasswordPresenter.changePassword(ForgetPasswordActivity.this, name, password);
+                    userViewModel.updatePassword(name, password, ForgetPasswordActivity.this);
                 }
             }
         });

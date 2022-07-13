@@ -9,33 +9,33 @@ import android.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.movieapp.R;
-import com.example.movieapp.control.Repository;
-import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.databinding.FragmentSearchBinding;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
 import com.example.movieapp.view.activity.MovieDetailsActivity;
 import com.example.movieapp.view.adapter.SearchMovieAdapter;
+import com.example.movieapp.viewmodel.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentSearch extends Fragment implements SearchMovieAdapter.onClickListener {
-    private SearchView searchMovie;
-    private RecyclerView movieLists;
-
-    private Repository repository;
     private SearchMovieAdapter searchMovieAdapter;
     private List<Movies> movies;
     private List<Movies> filter;
 
+    private FragmentSearchBinding binding;
+    private MovieViewModel movieViewModel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        binding = FragmentSearchBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         return view;
     }
 
@@ -43,33 +43,29 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        searchMovie = view.findViewById(R.id.search_movie);
-        movieLists = view.findViewById(R.id.movie_list);
+        movieViewModel = new MovieViewModel();
 
         movies = new ArrayList<>();
         filter = new ArrayList<>();
 
-        repository = new Repository();
-
-        repository = new Repository();
-        repository.getMovie(new Callback() {
+        movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<Movies>>() {
             @Override
-            public void getMovie(List<Movies> list) {
-                super.getMovie(list);
+            public void onChanged(List<Movies> list) {
                 for (Movies movie : list){
                     movies.add(movie);
                 }
                 searchMovieAdapter.notifyDataSetChanged();
             }
         });
+
         searchMovieAdapter = new SearchMovieAdapter();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         searchMovieAdapter.setOnClickListener(this);
         searchMovieAdapter.setMovies(movies);
-        movieLists.setLayoutManager(layoutManager);
-        movieLists.setAdapter(searchMovieAdapter);
+        binding.movieList.setLayoutManager(layoutManager);
+        binding.movieList.setAdapter(searchMovieAdapter);
 
-        searchMovie.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        binding.searchMovie.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 return false;
@@ -77,11 +73,10 @@ public class FragmentSearch extends Fragment implements SearchMovieAdapter.onCli
 
             @Override
             public boolean onQueryTextChange(String s) {
-                filter.clear();
-                repository.getMovie(new Callback() {
+                movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<Movies>>() {
                     @Override
-                    public void getMovie(List<Movies> list) {
-                        super.getMovie(list);
+                    public void onChanged(List<Movies> list) {
+                        filter.clear();
                         if (list != null) {
                             for (Movies movie : list) {
                                 if (movie.getName().toLowerCase().contains(s.toLowerCase())) {

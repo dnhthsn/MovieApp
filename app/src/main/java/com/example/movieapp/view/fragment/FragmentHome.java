@@ -7,18 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.movieapp.R;
-import com.example.movieapp.control.Repository;
-import com.example.movieapp.control.rest.Callback;
+import com.example.movieapp.databinding.FragmentHomeBinding;
 import com.example.movieapp.model.AllCategory;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
@@ -27,6 +26,7 @@ import com.example.movieapp.view.activity.MovieDetailsActivity;
 import com.example.movieapp.view.adapter.CategoryAdapter;
 import com.example.movieapp.view.adapter.MainRecyclerAdapter;
 import com.example.movieapp.view.adapter.SearchMovieAdapter;
+import com.example.movieapp.viewmodel.MovieViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,10 +37,6 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class FragmentHome extends Fragment implements CategoryAdapter.clickListener, SearchMovieAdapter.onClickListener{
-    private RecyclerView mainRecycler, categoryList;
-    private ImageView information;
-    private TextView title;
-
     private MainRecyclerAdapter mainRecyclerAdapter;
     private CategoryAdapter categoryAdapter;
     private SearchMovieAdapter searchMovieAdapter;
@@ -48,12 +44,14 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
     private List<String> categories;
     private List<Movies> movies, homeCatListItem1, homeCatListItem2, homeCatListItem3, homeCatListItem4;
 
-    private Repository repository;
+    private FragmentHomeBinding binding;
+    private MovieViewModel movieViewModel;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
         return view;
     }
 
@@ -61,10 +59,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mainRecycler = view.findViewById(R.id.main_recycler);
-        information = view.findViewById(R.id.information);
-        categoryList = view.findViewById(R.id.category_list);
-        title = view.findViewById(R.id.text_title);
+        movieViewModel = new MovieViewModel();
 
         String url = "https://images.clipartlogo.com/files/istock/previews/1020/102071463-flat-design-avatar-male-character-icon-vector.jpg";
         new GetImage().execute(url);
@@ -83,39 +78,37 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         allCategories.add(new AllCategory("Action movies", homeCatListItem3));
         allCategories.add(new AllCategory("Horror movies", homeCatListItem4));
 
-        title.setOnClickListener(new View.OnClickListener() {
+        binding.textTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setMainRecycler(allCategories);
             }
         });
 
-        repository = new Repository();
-        repository.getMovie(new Callback() {
+        movieViewModel.getMovies().observe((LifecycleOwner) getContext(), new Observer<List<Movies>>() {
             @Override
-            public void getMovie(List<Movies> list) {
-                super.getMovie(list);
-                for (Movies movie : list) {
+            public void onChanged(List<Movies> movies) {
+                for (Movies movie : movies) {
                     switch (movie.getGenre()) {
                         case "Horror":
                             //while (homeCatListItem4.size() < 5){
-                                homeCatListItem4.add(movie);
+                            homeCatListItem4.add(movie);
                             //}
                             break;
                         case "TV shows":
                             //while (homeCatListItem1.size() < 5){
-                                homeCatListItem1.add(movie);
+                            homeCatListItem1.add(movie);
                             //}
 
                             break;
                         case "Action":
                             //while (homeCatListItem3.size() < 5){
-                                homeCatListItem3.add(movie);
+                            homeCatListItem3.add(movie);
                             //}
                             break;
                         case "Kids":
                             //while (homeCatListItem2.size() < 5){
-                                homeCatListItem2.add(movie);
+                            homeCatListItem2.add(movie);
                             //}
                             break;
                     }
@@ -132,7 +125,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         setCategoryAdapter(categories);
         setMainRecycler(allCategories);
 
-        information.setOnClickListener(new View.OnClickListener() {
+        binding.information.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 InformationActivity.starter(getContext());
@@ -142,38 +135,37 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
 
     public void setMainRecycler(List<AllCategory> allCategoryList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        mainRecycler.setLayoutManager(layoutManager);
+        binding.mainRecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(allCategoryList);
-        mainRecycler.setAdapter(mainRecyclerAdapter);
+        binding.mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 
     public void setMainRecyclerItem(List<Movies> movies){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-        mainRecycler.setLayoutManager(layoutManager);
+        binding.mainRecycler.setLayoutManager(layoutManager);
         searchMovieAdapter = new SearchMovieAdapter();
         searchMovieAdapter.setMovies(movies);
         searchMovieAdapter.setOnClickListener(this);
-        mainRecycler.setAdapter(searchMovieAdapter);
+        binding.mainRecycler.setAdapter(searchMovieAdapter);
     }
 
     public void setCategoryAdapter(List<String> categories){
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
-        categoryList.setLayoutManager(layoutManager);
+        binding.categoryList.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(categories);
         categoryAdapter.setClickListener(this);
-        categoryList.setAdapter(categoryAdapter);
+        binding.categoryList.setAdapter(categoryAdapter);
     }
 
     @Override
     public void onClick(int position, View view, int selectedItem) {
         String genre = categories.get(position);
-        repository.getMovie(new Callback() {
+        movieViewModel.getMovies().observe((LifecycleOwner) getContext(), new Observer<List<Movies>>() {
             @Override
-            public void getMovie(List<Movies> list) {
-                super.getMovie(list);
+            public void onChanged(List<Movies> list) {
                 movies.clear();
                 for (Movies movie : list){
-                    if(movie.getGenre().equals(genre)){
+                    if (movie.getGenre().equals(genre)){
                         movies.add(movie);
                     }
                 }
@@ -213,7 +205,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         protected void onPostExecute(byte[] bytes) {
             if (bytes.length > 0){
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                information.setImageBitmap(bitmap);
+                binding.information.setImageBitmap(bitmap);
             }
             super.onPostExecute(bytes);
         }

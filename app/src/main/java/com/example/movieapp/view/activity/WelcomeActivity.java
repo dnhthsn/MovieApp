@@ -6,19 +6,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends AppCompatActivity {
     private static final int MESSAGE_COUNT_DOWN = 100;
 
-    private VideoView videoIntro;
-
     private Handler handler;
+    private ActivityWelcomeBinding binding;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -26,10 +26,12 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_welcome);
+
         String videoPath = "android.resource://" + getPackageName() + "/" + R.raw.intro;
-        videoIntro = findViewById(R.id.video_intro);
-        videoIntro.setVideoURI(Uri.parse(videoPath));
-        videoIntro.start();
+
+        binding.videoIntro.setVideoURI(Uri.parse(videoPath));
+        binding.videoIntro.start();
 
         handler = new Handler() {
             @Override

@@ -5,27 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivitySignUpBinding;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.control.Repository;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.viewmodel.UserViewModel;
 
 public class SignUpActivity extends AppCompatActivity {
-    private EditText inputName, inputPassword, inputPhone, inputAddress;
-    private RadioGroup genderGroup;
-    private Button clickSignup;
-    private ImageView clickBack;
-
-    private Repository repository;
+    private ActivitySignUpBinding binding;
+    private UserViewModel userViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, SignUpActivity.class);
@@ -37,31 +31,25 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        inputName = findViewById(R.id.input_name);
-        inputPassword = findViewById(R.id.input_password);
-        inputPhone = findViewById(R.id.input_phone);
-        inputAddress = findViewById(R.id.input_address);
-        clickSignup = findViewById(R.id.click_sign_up);
-        genderGroup = findViewById(R.id.gender_group);
-        clickBack = findViewById(R.id.click_back);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
+        userViewModel = new UserViewModel(this);
 
-        clickBack.setOnClickListener(new View.OnClickListener() {
+        binding.clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        repository = new Repository();
-        clickSignup.setOnClickListener(new View.OnClickListener() {
+        binding.clickSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String phone = inputPhone.getText().toString();
-                String password = inputPassword.getText().toString();
-                String address = inputAddress.getText().toString();
+                String name = binding.inputName.getText().toString();
+                String phone = binding.inputPhone.getText().toString();
+                String password = binding.inputPassword.getText().toString();
+                String address = binding.inputAddress.getText().toString();
 
-                int genderGrID = genderGroup.getCheckedRadioButtonId();
+                int genderGrID = binding.genderGroup.getCheckedRadioButtonId();
                 RadioButton genderRad = findViewById(genderGrID);
                 String gender = genderRad.getText().toString();
 
@@ -75,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, Const.Error.address, Toast.LENGTH_SHORT).show();
                 } else {
                     Users users = new Users(name, phone, password, address, gender);
-                    repository.addUser(users, SignUpActivity.this);
+                    userViewModel.addUser(users, SignUpActivity.this);
                     LoginActivity.starter(SignUpActivity.this);
                 }
             }

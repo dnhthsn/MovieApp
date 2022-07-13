@@ -13,11 +13,11 @@ import androidx.databinding.DataBindingUtil;
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityLoginAdminBinding;
 import com.example.movieapp.util.Const;
-import com.example.movieapp.viewmodel.LoginAdminViewModel;
+import com.example.movieapp.viewmodel.AdminViewModel;
 
 public class LoginAdminActivity extends AppCompatActivity {
     private ActivityLoginAdminBinding binding;
-    private LoginAdminViewModel loginAdminViewModel;
+    private AdminViewModel adminViewModel;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, LoginAdminActivity.class);
@@ -30,8 +30,7 @@ public class LoginAdminActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_admin);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login_admin);
-        loginAdminViewModel = new LoginAdminViewModel(this);
-        binding.setLoginAdmin(loginAdminViewModel);
+        adminViewModel = new AdminViewModel(this);
 
         binding.clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +48,8 @@ public class LoginAdminActivity extends AppCompatActivity {
                     Toast.makeText(LoginAdminActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
                 } else if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginAdminActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                } else {
+                    adminViewModel.checkAdmin(name, password, LoginAdminActivity.this);
                 }
             }
         });

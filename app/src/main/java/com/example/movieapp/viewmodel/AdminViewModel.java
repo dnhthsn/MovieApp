@@ -3,11 +3,10 @@ package com.example.movieapp.viewmodel;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
+import androidx.lifecycle.ViewModel;
 
-import com.example.movieapp.BR;
 import com.example.movieapp.control.Repository;
+import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.control.rest.Callback;
 import com.example.movieapp.model.Admins;
 import com.example.movieapp.util.Const;
@@ -15,45 +14,22 @@ import com.example.movieapp.view.activity.AddMovieActivity;
 
 import java.util.List;
 
-public class LoginAdminViewModel extends BaseObservable {
-    private String name;
-    private String password;
-
+public class AdminViewModel extends ViewModel {
     private Repository repository;
-    private Context context;
+    private SharedPreference sharedPreference;
 
-    public LoginAdminViewModel(Context context) {
+    public AdminViewModel(Context context) {
         this.repository = new Repository();
-        this.context = context;
+        this.sharedPreference = new SharedPreference(context);
     }
 
-    @Bindable
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-        notifyPropertyChanged(BR.name);
-    }
-
-    @Bindable
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-        notifyPropertyChanged(BR.password);
-    }
-
-    public void onClickLogin() {
+    public void checkAdmin(String name, String password, Context context){
         repository.getAdmin(new Callback() {
             @Override
             public void getAdmin(List<Admins> list) {
                 super.getAdmin(list);
-                for (Admins admin : list) {
-                    if (admin.getName().equals(getName()) && admin.getPassword().equals(getPassword())) {
+                for (Admins admins : list){
+                    if (admins.getName().equals(name) && admins.getPassword().equals(password)){
                         Toast.makeText(context, Const.Success.login, Toast.LENGTH_SHORT).show();
                         AddMovieActivity.starter(context);
                         break;

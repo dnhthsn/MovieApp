@@ -4,23 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
 import com.example.movieapp.control.local.SharedPreference;
+import com.example.movieapp.databinding.ActivityInformationBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
 
 public class InformationActivity extends AppCompatActivity {
-    private ImageView clickBack;
-    private TextView editInfo, name, password, phone, address, gender;
-    private Button logOut;
-
     private SharedPreference sharedPreference;
+    private ActivityInformationBinding binding;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, InformationActivity.class);
@@ -32,14 +28,7 @@ public class InformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_information);
 
-        clickBack = findViewById(R.id.click_back);
-        editInfo = findViewById(R.id.edit_infor);
-        name = findViewById(R.id.user_name);
-        password = findViewById(R.id.password);
-        phone = findViewById(R.id.phone_number);
-        address = findViewById(R.id.address);
-        gender = findViewById(R.id.gender);
-        logOut = findViewById(R.id.log_out);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_information);
 
         sharedPreference = new SharedPreference(this);
 
@@ -51,20 +40,20 @@ public class InformationActivity extends AppCompatActivity {
         String uAddress = users.getAddress();
         String uGender = users.getGender();
 
-        name.setText("Name: " + uName);
-        password.setText("Password: " + uPass);
-        phone.setText("Phone number: " + uPhone);
-        address.setText("Address: " + uAddress);
-        gender.setText("Gender: " + uGender);
+        binding.userName.setText("Name: " + uName);
+        binding.password.setText("Password: " + uPass);
+        binding.phoneNumber.setText("Phone number: " + uPhone);
+        binding.address.setText("Address: " + uAddress);
+        binding.gender.setText("Gender: " + uGender);
 
-        clickBack.setOnClickListener(new View.OnClickListener() {
+        binding.clickBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
 
-        editInfo.setOnClickListener(new View.OnClickListener() {
+        binding.editInfor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
@@ -77,7 +66,7 @@ public class InformationActivity extends AppCompatActivity {
             }
         });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+        binding.logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LoginActivity.starter(InformationActivity.this);

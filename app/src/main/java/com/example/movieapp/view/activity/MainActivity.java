@@ -7,15 +7,16 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivityMainBinding;
 import com.example.movieapp.view.adapter.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
-    private BottomNavigationView bottomNavigationView;
-    private ViewPager viewPager;
+    private ActivityMainBinding binding;
 
     public static void starter(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -27,12 +28,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
-        viewPager = findViewById(R.id.view_pager);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), 3);
-        viewPager.setAdapter(viewPagerAdapter);
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        binding.viewPager.setAdapter(viewPagerAdapter);
+        binding.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 switch (position){
-                    case 0: bottomNavigationView.getMenu().findItem(R.id.home_product).setCheckable(true);
+                    case 0: binding.bottomNavigationView.getMenu().findItem(R.id.home_product).setCheckable(true);
                         break;
-                    case 1: bottomNavigationView.getMenu().findItem(R.id.search_product).setCheckable(true);
+                    case 1: binding.bottomNavigationView.getMenu().findItem(R.id.search_product).setCheckable(true);
                         break;
                 }
             }
@@ -53,15 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        binding.bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.home_product:
-                        viewPager.setCurrentItem(0);
+                        binding.viewPager.setCurrentItem(0);
                         break;
                     case R.id.search_product:
-                        viewPager.setCurrentItem(1);
+                        binding.viewPager.setCurrentItem(1);
                         break;
                 }
                 return true;

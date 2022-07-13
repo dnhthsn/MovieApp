@@ -8,11 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivityVideoPlayerBinding;
 import com.example.movieapp.util.Const;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -31,19 +32,18 @@ import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.BandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 
 public class VideoPlayerActivity extends AppCompatActivity {
-    private PlayerView videoPlayer;
-    private ProgressBar progressBar;
     private ImageView fullScreen;
 
     private SimpleExoPlayer simpleExoPlayer;
 
     private Boolean flag = false;
+
+    private ActivityVideoPlayerBinding binding;
 
     public static void starter(Context context, String url) {
         Intent intent = new Intent(context, VideoPlayerActivity.class);
@@ -56,9 +56,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_player);
 
-        videoPlayer = findViewById(R.id.exo_player);
-        progressBar = findViewById(R.id.progress_bar);
-        fullScreen = videoPlayer.findViewById(R.id.full_screen);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_video_player);
+
+        fullScreen = binding.exoPlayer.findViewById(R.id.full_screen);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -74,8 +74,8 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
         MediaSource mediaSource = new ExtractorMediaSource(videoUri, factory, extractorsFactory, null, null);
-        videoPlayer.setPlayer(simpleExoPlayer);
-        videoPlayer.setKeepScreenOn(true);
+        binding.exoPlayer.setPlayer(simpleExoPlayer);
+        binding.exoPlayer.setKeepScreenOn(true);
         simpleExoPlayer.prepare(mediaSource);
         simpleExoPlayer.setPlayWhenReady(true);
         simpleExoPlayer.addListener(new Player.EventListener() {
@@ -97,9 +97,9 @@ public class VideoPlayerActivity extends AppCompatActivity {
             @Override
             public void onPlayerStateChanged(boolean b, int i) {
                 if(i == Player.STATE_BUFFERING){
-                    progressBar.setVisibility(View.VISIBLE);
+                    binding.progressBar.setVisibility(View.VISIBLE);
                 } else if (i == Player.STATE_READY){
-                    progressBar.setVisibility(View.INVISIBLE);
+                    binding.progressBar.setVisibility(View.INVISIBLE);
                 }
             }
 

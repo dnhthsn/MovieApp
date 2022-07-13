@@ -4,28 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import com.example.movieapp.R;
+import com.example.movieapp.databinding.ActivityEditInformationBinding;
 import com.example.movieapp.model.Users;
-import com.example.movieapp.control.Repository;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.viewmodel.UserViewModel;
 
 public class EditInformationActivity extends AppCompatActivity {
-    private EditText inputName, inputPassword, inputPhone, inputAddress;
-    private RadioGroup genderGroup;
-    private Button clickUpdate;
-    private ImageView clickBack;
-
-    private Repository repository;
+    private ActivityEditInformationBinding binding;
+    private UserViewModel userViewModel;
 
     public static void starter(Context context, Bundle bundle) {
         Intent intent = new Intent(context, EditInformationActivity.class);
@@ -38,58 +31,43 @@ public class EditInformationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_information);
 
-        inputName = findViewById(R.id.input_name);
-        inputPassword = findViewById(R.id.input_password);
-        inputPhone = findViewById(R.id.input_phone);
-        inputAddress = findViewById(R.id.input_address);
-        genderGroup = findViewById(R.id.gender_group);
-        clickUpdate = findViewById(R.id.click_update);
-        clickBack = findViewById(R.id.click_back);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_information);
+        userViewModel = new UserViewModel(this);
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         if (bundle != null){
-            inputName.setText(bundle.getString(Const.Sender.name));
-            inputPassword.setText(bundle.getString(Const.Sender.password));
-            inputPhone.setText(bundle.getString(Const.Sender.phone));
-            inputAddress.setText(bundle.getString(Const.Sender.address));
+            binding.inputName.setText(bundle.getString(Const.Sender.name));
+            binding.inputPassword.setText(bundle.getString(Const.Sender.password));
+            binding.inputPhone.setText(bundle.getString(Const.Sender.phone));
+            binding.inputAddress.setText(bundle.getString(Const.Sender.address));
         }
 
-        repository = new Repository();
+        binding.clickBack.setOnClickListener(view -> finish());
 
-        clickBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        binding.clickUpdate.setOnClickListener(view -> {
+            String name = binding.inputName.getText().toString();
+            String phone = binding.inputPhone.getText().toString();
+            String password = binding.inputPassword.getText().toString();
+            String address = binding.inputAddress.getText().toString();
 
-        clickUpdate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String name = inputName.getText().toString();
-                String phone = inputPhone.getText().toString();
-                String password = inputPassword.getText().toString();
-                String address = inputAddress.getText().toString();
+            int genderGrID = binding.genderGroup.getCheckedRadioButtonId();
+            RadioButton genderRad = findViewById(genderGrID);
+            String gender = genderRad.getText().toString();
 
-                int genderGrID = genderGroup.getCheckedRadioButtonId();
-                RadioButton genderRad = findViewById(genderGrID);
-                String gender = genderRad.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(EditInformationActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(phone)) {
-                    Toast.makeText(EditInformationActivity.this, Const.Error.phone, Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(EditInformationActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
-                } else if (TextUtils.isEmpty(address)) {
-                    Toast.makeText(EditInformationActivity.this, Const.Error.address, Toast.LENGTH_SHORT).show();
-                } else {
-                    Users users = new Users(name, phone, password, address, gender);
-                    repository.updateUser(users);
-                    LoginActivity.starter(EditInformationActivity.this);
-                    Toast.makeText(EditInformationActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
-                }
+            if (TextUtils.isEmpty(name)) {
+                Toast.makeText(EditInformationActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(phone)) {
+                Toast.makeText(EditInformationActivity.this, Const.Error.phone, Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(password)) {
+                Toast.makeText(EditInformationActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+            } else if (TextUtils.isEmpty(address)) {
+                Toast.makeText(EditInformationActivity.this, Const.Error.address, Toast.LENGTH_SHORT).show();
+            } else {
+                Users users = new Users(name, phone, password, address, gender);
+                userViewModel.updateUser(users);
+                LoginActivity.starter(EditInformationActivity.this);
+                Toast.makeText(EditInformationActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
             }
         });
     }

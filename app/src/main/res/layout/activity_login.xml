@@ -1,13 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-    <data>
-
-        <variable
-            name="userViewModel"
-            type="com.example.movieapp.viewmodel.LoginViewModel" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -61,7 +54,6 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@{userViewModel.messageLogin}"
                 android:textColor="#F44336" />
 
             <EditText
@@ -69,8 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:hint="Enter your user name..."
-                android:text="@={userViewModel.name}" />
+                android:hint="Enter your user name..." />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -83,8 +74,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="15"
-                    android:inputType="textPassword"
-                    android:text="@={userViewModel.password}" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,7 +111,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="150dp"
             android:background="@drawable/round_corner_button"
-            android:onClick="@{()->userViewModel.onClickLogin()}"
             android:text="Login"
             android:textAllCaps="false"
             android:textColor="@color/white"
