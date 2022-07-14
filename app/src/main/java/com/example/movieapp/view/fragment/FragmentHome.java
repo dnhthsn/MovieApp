@@ -1,5 +1,6 @@
 package com.example.movieapp.view.fragment;
 
+import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -11,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +30,7 @@ import com.example.movieapp.viewmodel.MovieViewModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.OkHttpClient;
@@ -86,7 +87,8 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         });
 
 
-        movieViewModel.getMovies().observe((LifecycleOwner) getContext(), new Observer<List<Movies>>() {
+        movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<Movies>>() {
+            @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(List<Movies> movies) {
                 for (Movies movie : movies) {
@@ -110,9 +112,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         });
 
         String[] strings = getResources().getStringArray(R.array.genres);
-        for (int i = 0; i < strings.length; i++) {
-            categories.add(strings[i]);
-        }
+        categories.addAll(Arrays.asList(strings));
 
         setCategoryAdapter(categories);
         setMainRecycler(allCategories);
@@ -152,7 +152,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
     @Override
     public void onClick(int position, View view, int selectedItem) {
         String genre = categories.get(position);
-        movieViewModel.getMovies().observe((LifecycleOwner) getContext(), new Observer<List<Movies>>() {
+        movieViewModel.getMovies().observe(getViewLifecycleOwner(), new Observer<List<Movies>>() {
             @Override
             public void onChanged(List<Movies> list) {
                 movies.clear();
