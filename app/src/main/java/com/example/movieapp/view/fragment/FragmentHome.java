@@ -91,6 +91,10 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
             @SuppressLint("NotifyDataSetChanged")
             @Override
             public void onChanged(List<Movies> movies) {
+                homeCatListItem1.clear();
+                homeCatListItem2.clear();
+                homeCatListItem3.clear();
+                homeCatListItem4.clear();
                 for (Movies movie : movies) {
                     switch (movie.getGenre()) {
                         case "Horror":
