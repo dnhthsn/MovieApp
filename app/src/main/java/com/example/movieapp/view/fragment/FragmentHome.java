@@ -36,7 +36,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class FragmentHome extends Fragment implements CategoryAdapter.clickListener, SearchMovieAdapter.onClickListener{
+public class FragmentHome extends Fragment implements CategoryAdapter.clickListener, SearchMovieAdapter.onClickListener {
     private MainRecyclerAdapter mainRecyclerAdapter;
     private CategoryAdapter categoryAdapter;
     private SearchMovieAdapter searchMovieAdapter;
@@ -85,31 +85,23 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
             }
         });
 
+
         movieViewModel.getMovies().observe((LifecycleOwner) getContext(), new Observer<List<Movies>>() {
             @Override
             public void onChanged(List<Movies> movies) {
                 for (Movies movie : movies) {
                     switch (movie.getGenre()) {
                         case "Horror":
-                            //while (homeCatListItem4.size() < 5){
                             homeCatListItem4.add(movie);
-                            //}
                             break;
                         case "TV shows":
-                            //while (homeCatListItem1.size() < 5){
                             homeCatListItem1.add(movie);
-                            //}
-
                             break;
                         case "Action":
-                            //while (homeCatListItem3.size() < 5){
                             homeCatListItem3.add(movie);
-                            //}
                             break;
                         case "Kids":
-                            //while (homeCatListItem2.size() < 5){
                             homeCatListItem2.add(movie);
-                            //}
                             break;
                     }
                 }
@@ -118,7 +110,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         });
 
         String[] strings = getResources().getStringArray(R.array.genres);
-        for (int i = 0 ; i < strings.length ;i ++){
+        for (int i = 0; i < strings.length; i++) {
             categories.add(strings[i]);
         }
 
@@ -140,7 +132,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         binding.mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 
-    public void setMainRecyclerItem(List<Movies> movies){
+    public void setMainRecyclerItem(List<Movies> movies) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         binding.mainRecycler.setLayoutManager(layoutManager);
         searchMovieAdapter = new SearchMovieAdapter();
@@ -149,7 +141,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         binding.mainRecycler.setAdapter(searchMovieAdapter);
     }
 
-    public void setCategoryAdapter(List<String> categories){
+    public void setCategoryAdapter(List<String> categories) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false);
         binding.categoryList.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(categories);
@@ -164,8 +156,8 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
             @Override
             public void onChanged(List<Movies> list) {
                 movies.clear();
-                for (Movies movie : list){
-                    if (movie.getGenre().equals(genre)){
+                for (Movies movie : list) {
+                    if (movie.getGenre().equals(genre)) {
                         movies.add(movie);
                     }
                 }
@@ -183,9 +175,10 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
         MovieDetailsActivity.starter(getContext(), bundle);
     }
 
-    class GetImage extends AsyncTask<String, Void, byte[]>{
+    class GetImage extends AsyncTask<String, Void, byte[]> {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .build();
+
         @Override
         protected byte[] doInBackground(String... strings) {
             Request.Builder builder = new Request.Builder();
@@ -203,7 +196,7 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
 
         @Override
         protected void onPostExecute(byte[] bytes) {
-            if (bytes.length > 0){
+            if (bytes.length > 0) {
                 Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 binding.information.setImageBitmap(bitmap);
             }
