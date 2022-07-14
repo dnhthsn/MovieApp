@@ -16,6 +16,9 @@ import com.example.movieapp.view.adapter.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
+    private final int FRAGMENT_HOME_INDEX = 0;
+    private final int FRAGMENT_SEARCH_INDEX = 1;
+
     private ActivityMainBinding binding;
 
     public static void starter(Context context) {
@@ -41,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
                 switch (position){
-                    case 0: binding.bottomNavigationView.getMenu().findItem(R.id.home_product).setCheckable(true);
+                    case FRAGMENT_HOME_INDEX: binding.bottomNavigationView.getMenu().findItem(R.id.home_movie).setCheckable(true);
                         break;
-                    case 1: binding.bottomNavigationView.getMenu().findItem(R.id.search_product).setCheckable(true);
+                    case FRAGMENT_SEARCH_INDEX: binding.bottomNavigationView.getMenu().findItem(R.id.search_movie).setCheckable(true);
                         break;
                 }
             }
@@ -57,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
-                    case R.id.home_product:
-                        binding.viewPager.setCurrentItem(0);
+                    case R.id.home_movie:
+                        binding.viewPager.setCurrentItem(FRAGMENT_HOME_INDEX);
                         break;
-                    case R.id.search_product:
-                        binding.viewPager.setCurrentItem(1);
+                    case R.id.search_movie:
+                        binding.viewPager.setCurrentItem(FRAGMENT_SEARCH_INDEX);
                         break;
                 }
                 return true;

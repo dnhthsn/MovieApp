@@ -10,7 +10,8 @@ import com.example.movieapp.view.fragment.FragmentSearch;
 
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-    int pageNum;
+    private int pageNum;
+
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
         this.pageNum = 2;
