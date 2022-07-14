@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -15,6 +14,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivitySignUpBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.viewmodel.UserViewModel;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -54,16 +54,16 @@ public class SignUpActivity extends AppCompatActivity {
                 String gender = genderRad.getText().toString();
 
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(SignUpActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.name);
                 } else if (TextUtils.isEmpty(phone)) {
-                    Toast.makeText(SignUpActivity.this, Const.Error.phone, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.phone);
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(SignUpActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.password);
                 } else if (TextUtils.isEmpty(address)) {
-                    Toast.makeText(SignUpActivity.this, Const.Error.address, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.address);
                 } else {
                     Users users = new Users(name, phone, password, address, gender);
-                    userViewModel.addUser(users, SignUpActivity.this);
+                    userViewModel.addUser(users, view);
                     LoginActivity.starter(SignUpActivity.this);
                 }
             }

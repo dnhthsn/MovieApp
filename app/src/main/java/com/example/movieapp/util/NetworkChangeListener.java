@@ -8,7 +8,7 @@ import android.widget.Toast;
 public class NetworkChangeListener extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Common.isConnectedToInternet(context)) {
+        if (Utility.isConnectedToInternet(context)) {
             Toast.makeText(context, Const.Success.connected, Toast.LENGTH_SHORT).show();
         }
     }

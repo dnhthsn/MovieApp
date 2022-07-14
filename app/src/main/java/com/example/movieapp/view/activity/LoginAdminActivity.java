@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityLoginAdminBinding;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.viewmodel.AdminViewModel;
 
 public class LoginAdminActivity extends AppCompatActivity {
@@ -45,9 +45,9 @@ public class LoginAdminActivity extends AppCompatActivity {
                 String name = binding.inputName.getText().toString();
                 String password = binding.inputPassword.getText().toString();
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(LoginAdminActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.name);
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginAdminActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.password);
                 } else {
                     adminViewModel.checkAdmin(name, password, LoginAdminActivity.this);
                 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import androidx.lifecycle.ViewModel;
 
@@ -38,15 +39,15 @@ public class UserViewModel extends ViewModel {
         return message;
     }
 
-    public void addUser(Users users, Context context) {
-        repository.addUser(users, context);
+    public void addUser(Users users, View view) {
+        repository.addUser(users, view);
     }
 
     public void updateUser(Users users){
         repository.updateUser(users);
     }
 
-    public void updatePassword(String name, String password, Context context){
+    public void updatePassword(String name, String password, View view, Context context){
         MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.timo);
         mediaPlayer.start();
 
@@ -77,7 +78,7 @@ public class UserViewModel extends ViewModel {
                 users.setName(name);
                 users.setPassword(password);
 
-                repository.updatePassword(users, context);
+                repository.updatePassword(users, view);
                 LoginActivity.starter(context);
             }
         });

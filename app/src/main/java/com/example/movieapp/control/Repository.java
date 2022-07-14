@@ -1,7 +1,6 @@
 package com.example.movieapp.control;
 
-import android.content.Context;
-import android.widget.Toast;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 
@@ -10,6 +9,7 @@ import com.example.movieapp.model.Admins;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -96,7 +96,7 @@ public class Repository {
         databaseReference.child(Const.Database.movie).addValueEventListener(postListener);
     }
 
-    public void addUser(Users users, Context context) {
+    public void addUser(Users users, View view) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -112,14 +112,14 @@ public class Repository {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
+                                Utility.Notice.snack(view, Const.Success.created);
                             } else {
-                                Toast.makeText(context, Const.Error.network, Toast.LENGTH_SHORT).show();
+                                Utility.Notice.snack(view, Const.Error.network);
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(context, Const.Error.existed, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.existed);
                 }
             }
 
@@ -130,7 +130,7 @@ public class Repository {
         });
     }
 
-    public void addMovie(Movies movies, Context context) {
+    public void addMovie(Movies movies, View view) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -145,14 +145,14 @@ public class Repository {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(context, Const.Success.created, Toast.LENGTH_SHORT).show();
+                                Utility.Notice.snack(view, Const.Success.created);
                             } else {
-                                Toast.makeText(context, Const.Error.network, Toast.LENGTH_SHORT).show();
+                                Utility.Notice.snack(view, Const.Error.network);
                             }
                         }
                     });
                 } else {
-                    Toast.makeText(context, Const.Error.existed, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.existed);
                 }
             }
 
@@ -167,15 +167,15 @@ public class Repository {
         databaseReference.child(Const.Database.user).child(users.getName()).setValue(users);
     }
 
-    public void updatePassword(Users users, Context context) {
+    public void updatePassword(Users users, View view) {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.child(Const.Database.user).child(users.getName()).exists()) {
-                    Toast.makeText(context, Const.Success.update, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Success.update);
                     databaseReference.child(Const.Database.user).child(users.getName()).child(Const.Database.password).setValue(users.getPassword());
                 } else {
-                    Toast.makeText(context, Const.Error.notexisted, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.notexisted);
                 }
             }
 

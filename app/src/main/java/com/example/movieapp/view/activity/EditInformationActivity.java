@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -14,6 +13,7 @@ import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityEditInformationBinding;
 import com.example.movieapp.model.Users;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.viewmodel.UserViewModel;
 
 public class EditInformationActivity extends AppCompatActivity {
@@ -56,18 +56,18 @@ public class EditInformationActivity extends AppCompatActivity {
             String gender = genderRad.getText().toString();
 
             if (TextUtils.isEmpty(name)) {
-                Toast.makeText(EditInformationActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+                Utility.Notice.snack(view, Const.Error.name);
             } else if (TextUtils.isEmpty(phone)) {
-                Toast.makeText(EditInformationActivity.this, Const.Error.phone, Toast.LENGTH_SHORT).show();
+                Utility.Notice.snack(view, Const.Error.phone);
             } else if (TextUtils.isEmpty(password)) {
-                Toast.makeText(EditInformationActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                Utility.Notice.snack(view, Const.Error.password);
             } else if (TextUtils.isEmpty(address)) {
-                Toast.makeText(EditInformationActivity.this, Const.Error.address, Toast.LENGTH_SHORT).show();
+                Utility.Notice.snack(view, Const.Error.address);
             } else {
                 Users users = new Users(name, phone, password, address, gender);
                 userViewModel.updateUser(users);
                 LoginActivity.starter(EditInformationActivity.this);
-                Toast.makeText(EditInformationActivity.this, Const.Success.update, Toast.LENGTH_SHORT).show();
+                Utility.Notice.snack(view, Const.Success.update);
             }
         });
     }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,9 @@ import com.example.movieapp.R;
 import com.example.movieapp.control.local.SharedPreference;
 import com.example.movieapp.databinding.ActivityLoginBinding;
 import com.example.movieapp.model.Users;
+import com.example.movieapp.util.Const;
 import com.example.movieapp.util.NetworkChangeListener;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.viewmodel.UserViewModel;
 
 public class LoginActivity extends AppCompatActivity {
@@ -53,14 +56,20 @@ public class LoginActivity extends AppCompatActivity {
                 String name = binding.inputName.getText().toString();
                 String password = binding.inputPassword.getText().toString();
 
-                if (binding.rememberUser.isChecked()){
-                    sharedPreference.saveUser(name, password);
+                if (TextUtils.isEmpty(name)) {
+                    Utility.Notice.snack(view, Const.Error.name);
+                } else if (TextUtils.isEmpty(password)) {
+                    Utility.Notice.snack(view, Const.Error.password);
                 } else {
-                    sharedPreference.removeUser();
-                }
+                    if (binding.rememberUser.isChecked()) {
+                        sharedPreference.saveUser(name, password);
+                    } else {
+                        sharedPreference.removeUser();
+                    }
 
-                userViewModel.checkUser(name, password, LoginActivity.this);
-                binding.wrongInfo.setText(userViewModel.getMessage());
+                    userViewModel.checkUser(name, password, LoginActivity.this);
+                    binding.wrongInfo.setText(userViewModel.getMessage());
+                }
             }
         });
 

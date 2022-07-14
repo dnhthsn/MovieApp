@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityForgetPasswordBinding;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.util.Utility;
 import com.example.movieapp.viewmodel.UserViewModel;
 
 public class ForgetPasswordActivity extends AppCompatActivity{
@@ -47,13 +47,13 @@ public class ForgetPasswordActivity extends AppCompatActivity{
                 String repass = binding.inputRepassword.getText().toString();
 
                 if (TextUtils.isEmpty(name)) {
-                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.name, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.name);
                 } else if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.password, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.password);
                 } else if (!repass.equals(password)) {
-                    Toast.makeText(ForgetPasswordActivity.this, Const.Error.notmatch, Toast.LENGTH_SHORT).show();
+                    Utility.Notice.snack(view, Const.Error.notmatch);
                 } else {
-                    userViewModel.updatePassword(name, password, ForgetPasswordActivity.this);
+                    userViewModel.updatePassword(name, password, view, ForgetPasswordActivity.this);
                 }
             }
         });

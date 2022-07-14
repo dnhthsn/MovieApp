@@ -39,7 +39,7 @@ public class AddMovieActivity extends AppCompatActivity{
                 String genre = binding.movieGenre.getSelectedItem().toString();
 
                 Movies movies = new Movies(name, image, video, genre);
-                movieViewModel.addMovie(movies, AddMovieActivity.this);
+                movieViewModel.addMovie(movies, view);
 
                 binding.inputMovieName.setText("");
                 binding.inputMovieImage.setText("");

@@ -1,6 +1,6 @@
 package com.example.movieapp.viewmodel;
 
-import android.content.Context;
+import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -30,7 +30,7 @@ public class MovieViewModel extends ViewModel {
         return movies;
     }
 
-    public void addMovie(Movies movies, Context context){
-        repository.addMovie(movies, context);
+    public void addMovie(Movies movies, View view){
+        repository.addMovie(movies, view);
     }
 }
