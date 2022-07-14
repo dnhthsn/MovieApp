@@ -63,6 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:hint="user name" />
 
             <EditText
@@ -70,6 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_password_24"
                 android:hint="password" />
 
             <EditText
@@ -77,6 +79,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_phone_android_24"
                 android:hint="phone number" />
 
             <EditText
@@ -84,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_maps_home_work_24"
                 android:hint="address" />
 
             <RadioGroup
@@ -98,6 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:drawableLeft="@drawable/ic_baseline_male_24"
                     android:text="Male"
                     android:textStyle="bold" />
 
@@ -106,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/ic_baseline_female_24"
                     android:text="Female"
                     android:textStyle="bold" />
 
@@ -119,6 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="150dp"
             android:background="@drawable/round_corner_button"
+            android:drawableLeft="@drawable/ic_baseline_update_24"
             android:text="Update"
             android:textAllCaps="false"
             android:textColor="@color/white"

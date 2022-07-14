@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/ic_baseline_edit_24"
                 android:text="Edit"
                 android:textSize="30dp"
                 android:textStyle="bold" />
@@ -51,6 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:padding="5dp"
                 android:text="user name"
                 android:textColor="@color/black"
@@ -62,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_password_24"
                 android:padding="5dp"
                 android:text="password"
                 android:textColor="@color/black"
@@ -73,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_phone_android_24"
                 android:padding="5dp"
                 android:text="phone"
                 android:textColor="@color/black"
@@ -84,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/ic_baseline_maps_home_work_24"
                 android:padding="5dp"
                 android:text="address"
                 android:textColor="@color/black"
@@ -95,6 +100,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:drawableLeft="@drawable/gender"
                 android:padding="5dp"
                 android:text="gender"
                 android:textColor="@color/black"
@@ -110,6 +116,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
             android:background="@drawable/round_corner_button"
+            android:drawableLeft="@drawable/ic_baseline_logout_24"
             android:text="Log out" />
     </LinearLayout>
 </layout>
