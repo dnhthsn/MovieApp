@@ -128,7 +128,8 @@ public class FragmentHome extends Fragment implements CategoryAdapter.clickListe
     public void setMainRecycler(List<AllCategory> allCategoryList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
         binding.mainRecycler.setLayoutManager(layoutManager);
-        mainRecyclerAdapter = new MainRecyclerAdapter(allCategoryList);
+        mainRecyclerAdapter = new MainRecyclerAdapter();
+        mainRecyclerAdapter.setAllCategory(allCategoryList);
         binding.mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 

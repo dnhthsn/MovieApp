@@ -18,8 +18,9 @@ import java.util.List;
 public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
     private List<AllCategory> allCategory;
 
-    public MainRecyclerAdapter(List<AllCategory> allCategoryList) {
-        this.allCategory = allCategoryList;
+    public void setAllCategory(List<AllCategory> allCategory) {
+        this.allCategory = allCategory;
+        notifyDataSetChanged();
     }
 
     @NonNull
