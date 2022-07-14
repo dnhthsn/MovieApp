@@ -1,13 +1,8 @@
 package com.example.movieapp.view.activity;
 
-import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
@@ -15,12 +10,8 @@ import com.example.movieapp.R;
 import com.example.movieapp.databinding.ActivityWelcomeBinding;
 
 public class WelcomeActivity extends AppCompatActivity {
-    private static final int MESSAGE_COUNT_DOWN = 100;
-
-    private Handler handler;
     private ActivityWelcomeBinding binding;
 
-    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,43 +24,15 @@ public class WelcomeActivity extends AppCompatActivity {
         binding.videoIntro.setVideoURI(Uri.parse(videoPath));
         binding.videoIntro.start();
 
-        handler = new Handler() {
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                switch (msg.what) {
-                    case MESSAGE_COUNT_DOWN:
-                        break;
-                    case 234:
-                        LoginActivity.starter(WelcomeActivity.this);
-                }
-            }
-        };
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        new CountDown().start();
-    }
-
-    class CountDown extends Thread {
-        @Override
-        public void run() {
-            int count = 5;
-            while (count > 0) {
-                count--;
-                Message message = new Message();
-                message.what = MESSAGE_COUNT_DOWN;
-                message.arg1 = count;
-                handler.sendMessage(message);
+        new Thread(){
+            public void run(){
                 try {
-                    Thread.sleep(1200);
+                    sleep(5000);
+                    LoginActivity.starter(WelcomeActivity.this);
                 } catch (InterruptedException e) {
-                    Log.d("loi:", e.getMessage());
+                    e.printStackTrace();
                 }
             }
-
-            handler.sendEmptyMessage(234);
-        }
+        }.start();
     }
 }
