@@ -33,15 +33,15 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") final int position) {
-
-        Glide.with(holder.itemView.getContext()).load(categoryItem.get(position).getImage()).into(holder.itemImage);
+        Movies category = categoryItem.get(position);
+        Glide.with(holder.itemView.getContext()).load(category.getImage()).into(holder.itemImage);
         holder.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(holder.itemView.getContext(), MovieDetailsActivity.class);
-                i.putExtra(Const.Sender.movieName, categoryItem.get(position).getName());
-                i.putExtra(Const.Sender.movieImageUrl, categoryItem.get(position).getImage());
-                i.putExtra(Const.Sender.movieFile, categoryItem.get(position).getVideo());
+                i.putExtra(Const.Sender.movieName, category.getName());
+                i.putExtra(Const.Sender.movieImageUrl, category.getImage());
+                i.putExtra(Const.Sender.movieFile, category.getVideo());
                 holder.itemView.getContext().startActivity(i);
             }
         });

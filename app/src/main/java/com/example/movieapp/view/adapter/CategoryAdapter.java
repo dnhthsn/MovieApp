@@ -37,22 +37,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
         holder.categoryName.setText(categories.get(position));
-//        holder.itemView.setTag(categories.get(position));
-//        if (selectedItem == position){
-//            holder.itemView.setBackgroundColor(Color.RED);
-//        } else {
-//            holder.itemView.setBackgroundColor(Color.BLACK);
-//        }
-//        holder.categoryName.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                int previousItem = selectedItem;
-//                selectedItem = position;
-//
-//                notifyItemChanged(previousItem);
-//                notifyItemChanged(position);
-//            }
-//        });
     }
 
     @Override

@@ -40,13 +40,14 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SearchMovieAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        Glide.with(holder.itemView.getContext()).load(movies.get(position).getImage()).into(holder.movieImage);
-        holder.movieName.setText(movies.get(position).getName());
+        Movies movie = movies.get(position);
+        Glide.with(holder.itemView.getContext()).load(movie.getImage()).into(holder.movieImage);
+        holder.movieName.setText(movie.getName());
         holder.playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(holder.itemView.getContext(), VideoPlayerActivity.class);
-                i.putExtra(Const.Sender.url, movies.get(position).getVideo());
+                i.putExtra(Const.Sender.url, movie.getVideo());
                 holder.itemView.getContext().startActivity(i);
             }
         });
