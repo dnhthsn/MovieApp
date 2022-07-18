@@ -3,7 +3,6 @@ package com.example.movieapp.view.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,11 +45,7 @@ public class ForgetPasswordActivity extends AppCompatActivity{
                 String password = binding.inputPassword.getText().toString();
                 String repass = binding.inputRepassword.getText().toString();
 
-                if (TextUtils.isEmpty(name)) {
-                    Utility.Notice.snack(view, Const.Error.name);
-                } else if (TextUtils.isEmpty(password)) {
-                    Utility.Notice.snack(view, Const.Error.password);
-                } else if (!repass.equals(password)) {
+                if (!repass.equals(password)) {
                     Utility.Notice.snack(view, Const.Error.notmatch);
                 } else {
                     userViewModel.updatePassword(name, password, view, ForgetPasswordActivity.this);

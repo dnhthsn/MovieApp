@@ -5,16 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.movieapp.view.activity.MovieDetailsActivity;
-import com.example.movieapp.R;
+import com.example.movieapp.databinding.ItemCategoryMoviesBinding;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.view.activity.MovieDetailsActivity;
 
 import java.util.List;
 
@@ -28,14 +27,15 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_movies, parent, false));
+        ItemCategoryMoviesBinding binding = ItemCategoryMoviesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ItemViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         Movies category = categoryItem.get(position);
-        Glide.with(holder.itemView.getContext()).load(category.getImage()).into(holder.itemImage);
-        holder.itemImage.setOnClickListener(new View.OnClickListener() {
+        Glide.with(holder.itemView.getContext()).load(category.getImage()).into(holder.binding.itemImage);
+        holder.binding.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(holder.itemView.getContext(), MovieDetailsActivity.class);
@@ -53,11 +53,11 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     public static final class ItemViewHolder extends RecyclerView.ViewHolder {
-        private ImageView itemImage;
+        private ItemCategoryMoviesBinding binding;
 
-        public ItemViewHolder(@NonNull View itemView) {
-            super(itemView);
-            itemImage = itemView.findViewById(R.id.item_image);
+        public ItemViewHolder(@NonNull ItemCategoryMoviesBinding b) {
+            super(b.getRoot());
+            binding = b;
         }
     }
 }

@@ -14,8 +14,6 @@ import com.example.movieapp.databinding.ActivityMovieDetailsBinding;
 import com.example.movieapp.util.Const;
 
 public class MovieDetailsActivity extends AppCompatActivity {
-    private String mName, mImage, mFileUrl;
-
     private ActivityMovieDetailsBinding binding;
 
     public static void starter(Context context, Bundle bundle) {
@@ -31,9 +29,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_movie_details);
 
-        mName = getIntent().getStringExtra(Const.Sender.movieName);
-        mImage = getIntent().getStringExtra(Const.Sender.movieImageUrl);
-        mFileUrl = getIntent().getStringExtra(Const.Sender.movieFile);
+        String mName = getIntent().getStringExtra(Const.Sender.movieName);
+        String mImage = getIntent().getStringExtra(Const.Sender.movieImageUrl);
+        String mFileUrl = getIntent().getStringExtra(Const.Sender.movieFile);
 
         Glide.with(this).load(mImage).into(binding.movieImage);
         binding.movieName.setText(mName);

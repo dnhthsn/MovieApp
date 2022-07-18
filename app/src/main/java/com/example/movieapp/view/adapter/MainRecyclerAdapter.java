@@ -1,15 +1,13 @@
 package com.example.movieapp.view.adapter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.movieapp.R;
+import com.example.movieapp.databinding.ItemMainRecyclerBinding;
 import com.example.movieapp.model.AllCategory;
 import com.example.movieapp.model.Movies;
 
@@ -26,13 +24,14 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MainViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_main_recycler, parent, false));
+        ItemMainRecyclerBinding binding = ItemMainRecyclerBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new MainViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MainViewHolder holder, int position) {
-        holder.categoryName.setText(allCategory.get(position).getCategoryTitle());
-        setItemRecycler(holder.itemRecycler, allCategory.get(position).getCategoryItem());
+        holder.binding.itemCategory.setText(allCategory.get(position).getCategoryTitle());
+        setItemRecycler(holder.binding.itemRecycler, allCategory.get(position).getCategoryItem());
     }
 
     @Override
@@ -41,14 +40,12 @@ public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapte
     }
 
     public static final class MainViewHolder extends RecyclerView.ViewHolder {
-        private TextView categoryName;
-        private RecyclerView itemRecycler;
+        private ItemMainRecyclerBinding binding;
 
-        public MainViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public MainViewHolder(@NonNull ItemMainRecyclerBinding b) {
+            super(b.getRoot());
 
-            categoryName = itemView.findViewById(R.id.item_category);
-            itemRecycler = itemView.findViewById(R.id.item_recycler);
+            binding = b;
         }
     }
 

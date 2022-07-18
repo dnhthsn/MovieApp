@@ -4,12 +4,11 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.movieapp.R;
+import com.example.movieapp.databinding.ItemCategoriesBinding;
 
 import java.util.List;
 
@@ -17,7 +16,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     private List<String> categories;
     private clickListener clickListener;
     private int selectedItem;
-
 
     public void setClickListener(CategoryAdapter.clickListener clickListener) {
         this.clickListener = clickListener;
@@ -31,12 +29,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @NonNull
     @Override
     public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CategoryViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_categories, parent, false));
+        ItemCategoriesBinding binding = ItemCategoriesBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new CategoryViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        holder.categoryName.setText(categories.get(position));
+        holder.binding.categoryName.setText(categories.get(position));
     }
 
     @Override
@@ -45,11 +44,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView categoryName;
-        public CategoryViewHolder(@NonNull View itemView) {
-            super(itemView);
+        private ItemCategoriesBinding binding;
 
-            categoryName = itemView.findViewById(R.id.category_name);
+        public CategoryViewHolder(@NonNull ItemCategoriesBinding b) {
+            super(b.getRoot());
+
+            binding = b;
             itemView.setOnClickListener(this);
         }
 

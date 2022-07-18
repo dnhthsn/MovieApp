@@ -5,17 +5,15 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.movieapp.R;
-import com.example.movieapp.view.activity.VideoPlayerActivity;
+import com.example.movieapp.databinding.ItemSearchMovieBinding;
 import com.example.movieapp.model.Movies;
 import com.example.movieapp.util.Const;
+import com.example.movieapp.view.activity.VideoPlayerActivity;
 
 import java.util.List;
 
@@ -35,15 +33,16 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     @NonNull
     @Override
     public SearchMovieAdapter.SearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SearchViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_search_movie, parent, false));
+        ItemSearchMovieBinding binding = ItemSearchMovieBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new SearchViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull SearchMovieAdapter.SearchViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Movies movie = movies.get(position);
-        Glide.with(holder.itemView.getContext()).load(movie.getImage()).into(holder.movieImage);
-        holder.movieName.setText(movie.getName());
-        holder.playVideo.setOnClickListener(new View.OnClickListener() {
+        Glide.with(holder.itemView.getContext()).load(movie.getImage()).into(holder.binding.itemImage);
+        holder.binding.itemName.setText(movie.getName());
+        holder.binding.playVideo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(holder.itemView.getContext(), VideoPlayerActivity.class);
@@ -64,15 +63,12 @@ public class SearchMovieAdapter extends RecyclerView.Adapter<SearchMovieAdapter.
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private ImageView movieImage, playVideo;
-        private TextView movieName;
+        private ItemSearchMovieBinding binding;
 
-        public SearchViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public SearchViewHolder(@NonNull ItemSearchMovieBinding b) {
+            super(b.getRoot());
 
-            movieImage = itemView.findViewById(R.id.item_image);
-            movieName = itemView.findViewById(R.id.item_name);
-            playVideo = itemView.findViewById(R.id.play_video);
+            binding = b;
             itemView.setOnClickListener(this);
         }
 
